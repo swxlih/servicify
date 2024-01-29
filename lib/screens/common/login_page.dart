@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:servicify/constants/colors.dart';
 import 'package:servicify/screens/admin/admin_home_page.dart';
+import 'package:servicify/screens/auth/models/user_model.dart';
+import 'package:servicify/screens/auth/services/userservice.dart';
+import 'package:servicify/screens/common/errorpage.dart';
 import 'package:servicify/screens/common/signup.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:servicify/screens/user/bottm_navigation_page.dart';
 
 import '../user/UserHomePage.dart';
 
@@ -24,6 +31,92 @@ class _LoginPageState extends State<LoginPage> {
 
   final _loginKey=GlobalKey<FormState>();
 
+  // Service class and model class objects
+  UserService _userService = UserService();
+  UserModel _user = UserModel();
+
+  //loading state variable
+  bool _isLoading = false;
+// function to handle login
+  void _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+    _user = UserModel(
+        email: _usernamecontroller.text.trim(),
+        password: _passwordcontroller.text.trim());
+
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await Future.delayed(Duration(seconds: 4));
+      DocumentSnapshot data = await _userService.loginUser(_user);
+
+      print(data['usertype']);
+      var _type = data['usertype'];
+
+      if (_type == "admin" ) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => AdminHomePage()),
+                (route) => false);
+      }else if(_type=="user" && data['status']==1){
+
+        // FirebaseFirestore.instance.collection('bookmarks').doc(data['uid']).set({
+        //   'userId':data['uid'],'courseIds': []
+        // });
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => BottomNavigationBarPage()),
+                (route) => false);
+      }
+      else if(_type=="feelancer" && data['status']==1){
+        //freelancer_home
+
+      }
+      else{
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => ErrorPage(errorMessage: "Contact Administrator")),
+                (route) => false);
+      }
+
+
+
+      // Navigate to the next page after registration is complete
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      List err = e.toString().split("]");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: AppColors.primaryColor,
+          duration: Duration(seconds: 3),
+          content: Container(
+              height: 85,
+              child: Center(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                          backgroundColor: Colors.amber,
+                          child: Icon(
+                            Icons.warning,
+                            color: Colors.white,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(child: Text(err[1].toString())),
+                    ],
+                  )))));
+    }
+
+    // Simulate registration delay
+  }
+
+
   @override
 
   Widget build(BuildContext context) {
@@ -35,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
 
         ),
-        padding: EdgeInsets.all(50),
+        padding: EdgeInsets.all(20),
         child: Form(
           key: _loginKey,
           child: CustomScrollView(
@@ -164,21 +257,17 @@ class _LoginPageState extends State<LoginPage> {
                       child: InkWell(
                         onTap: (){
                           if(_loginKey.currentState!.validate()) {
-                            print(_usernamecontroller.text);
-                            print(_passwordcontroller.text);
+
 
                             if (_usernamecontroller.text == "admin@gmail.com" &&
                                 _passwordcontroller.text == "12345678") {
                               Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (context) =>
                               AdminHomePage()));
+                            }else{
+                              _login();
                             }
-                             else if(_usernamecontroller.text == "user@gmail.com" &&
-                                _passwordcontroller.text=="12345678"){
-                              Navigator.pushReplacement(
-                                  context, MaterialPageRoute(builder: (context) =>
-                                  UserHomePage()));
-                            }
+
                           }
                         },
                         child: Container(

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "736923818452",
-    "project_id": "servicify-79e8c",
-    "storage_bucket": "servicify-79e8c.appspot.com"
+    "project_number": "543538358996",
+    "project_id": "servicify-a4218",
+    "storage_bucket": "servicify-a4218.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:736923818452:android:4e5a38bbd73a01ade65e41",
+        "mobilesdk_app_id": "1:543538358996:android:e1a5ac615f766c53db2941",
         "android_client_info": {
           "package_name": "com.ralfiz.servicify"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCBhkYz3BkwXkj2WmqYtXHAQwOpafdMSgQ"
+          "current_key": "AIzaSyDejb61qhD_AJybwyGxO3KZB3alZEJPVe4"
         }
       ],
       "services": {

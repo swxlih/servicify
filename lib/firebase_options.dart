@@ -47,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDlephHwD724GQs6x93KrDjPC8b1RBqg5M',
-    appId: '1:736923818452:web:3396e732877cb52be65e41',
-    messagingSenderId: '736923818452',
-    projectId: 'servicify-79e8c',
-    authDomain: 'servicify-79e8c.firebaseapp.com',
-    storageBucket: 'servicify-79e8c.appspot.com',
+    apiKey: 'AIzaSyBT8_rKGeqkoRTgbgy5tUvBEmTn4Hm7vvU',
+    appId: '1:543538358996:web:cf9b98f880dfc4ecdb2941',
+    messagingSenderId: '543538358996',
+    projectId: 'servicify-a4218',
+    authDomain: 'servicify-a4218.firebaseapp.com',
+    storageBucket: 'servicify-a4218.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCBhkYz3BkwXkj2WmqYtXHAQwOpafdMSgQ',
-    appId: '1:736923818452:android:4e5a38bbd73a01ade65e41',
-    messagingSenderId: '736923818452',
-    projectId: 'servicify-79e8c',
-    storageBucket: 'servicify-79e8c.appspot.com',
+    apiKey: 'AIzaSyDejb61qhD_AJybwyGxO3KZB3alZEJPVe4',
+    appId: '1:543538358996:android:e1a5ac615f766c53db2941',
+    messagingSenderId: '543538358996',
+    projectId: 'servicify-a4218',
+    storageBucket: 'servicify-a4218.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAjA5zxwtsMdA0aqZPVAEdwOGMSP_793m4',
-    appId: '1:736923818452:ios:6df927ab90baa1e4e65e41',
-    messagingSenderId: '736923818452',
-    projectId: 'servicify-79e8c',
-    storageBucket: 'servicify-79e8c.appspot.com',
+    apiKey: 'AIzaSyDp4Cd-zrPRoY2qN1LMimfdiDxAKvpEyWE',
+    appId: '1:543538358996:ios:a9d9147bc942096edb2941',
+    messagingSenderId: '543538358996',
+    projectId: 'servicify-a4218',
+    storageBucket: 'servicify-a4218.appspot.com',
     iosBundleId: 'com.ralfiz.servicify',
   );
 }
