@@ -5,10 +5,9 @@ import 'package:servicify/constants/colors.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
 import 'package:servicify/screens/user/bottomnavigation_widget.dart';
 import 'package:servicify/screens/user/services/bottombar_service.dart';
+import 'package:servicify/screens/user/settings/settings_page.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
@@ -25,10 +24,6 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   String? token;
   String? _location;
   var imggurl;
-
-
-
-
 
   Map<String, dynamic> data = {};
   String? _uid;
@@ -64,10 +59,8 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       'uid',
     );
 
-
     print(data);
     setState(() {
-
       data = {
         "name": _name,
         "email": _email,
@@ -84,22 +77,20 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     getData();
     initializePage();
     super.initState();
-
-
   }
 
-List _widgetOption=[];
+  List _widgetOption = [];
 
   Future<void> initializePage() async {
     await getData();
     _widgetOption = [
       UserHomePage(),
-     Text("hello"),
-     Text("hello"),
-     Text("hello"),
-
+      Text("hello"),
+      Settingpage(),
+      Text("hello"),
     ];
   }
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -108,7 +99,6 @@ List _widgetOption=[];
     String type;
     return Consumer<BottomBarServiceProvider>(
         builder: (context, bottomprovider, child) {
-
       return Scaffold(
           bottomNavigationBar: BottomNavigation(),
           drawer: Drawer(
@@ -130,7 +120,6 @@ List _widgetOption=[];
                       ],
                     ),
                   ),
-
                   ListTile(
                     title:
                         Text("Logout", style: TextStyle(color: Colors.white)),
@@ -145,23 +134,17 @@ List _widgetOption=[];
               )),
           backgroundColor: AppColors.scaffoldColor,
           appBar: AppBar(
-            leading:  Padding(
+            backgroundColor: AppColors.scaffoldColor,
+            leading: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Center(
-                  child: IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    icon: Icon(
-                      Icons.grid_view_outlined,
-                      color: Colors.black,
-                    ),
+              child: Center(
+                child: IconButton(
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  icon: Icon(
+                    Icons.grid_view_outlined,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -169,13 +152,16 @@ List _widgetOption=[];
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: imggurl=="null" ?CircleAvatar(
-                  radius: 33,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                ):CircleAvatar(
-                  radius: 33,
-                  backgroundImage:NetworkImage('${imggurl}'),
-                ),
+                child: imggurl == "null"
+                    ? CircleAvatar(
+                        radius: 33,
+                        backgroundImage:
+                            AssetImage('assets/img/profile.png'),
+                      )
+                    : CircleAvatar(
+                        radius: 33,
+                        backgroundImage: NetworkImage('${imggurl}'),
+                      ),
               ),
             ],
           ),
