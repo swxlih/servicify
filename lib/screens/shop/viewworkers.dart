@@ -4,14 +4,15 @@ import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
-class ViewAllFrelancers extends StatefulWidget {
-  const ViewAllFrelancers({super.key});
+class ViewWorkers extends StatefulWidget {
+  var createdid;
+  ViewWorkers({super.key,this.createdid});
 
   @override
-  State<ViewAllFrelancers> createState() => _ViewAllFrelancersState();
+  State<ViewWorkers> createState() => _ViewWorkersState();
 }
 
-class _ViewAllFrelancersState extends State<ViewAllFrelancers> {
+class _ViewWorkersState extends State<ViewWorkers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +20,7 @@ class _ViewAllFrelancersState extends State<ViewAllFrelancers> {
 
         backgroundColor: primaryColor,
         title: Text(
-          "View All Freelancers",
+          "View Workers",
           style: appbarStyle,
         ),
       ),
@@ -28,8 +29,8 @@ class _ViewAllFrelancersState extends State<ViewAllFrelancers> {
           height: double.infinity,
           width: double.infinity,
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("freelancer").
-              where("status",isEqualTo: 1).
+              stream: FirebaseFirestore.instance.collection("workers").
+              where("status",isEqualTo: 1).where('createdby',isNotEqualTo: widget.createdid).
               snapshots(),
               builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if(!snapshot.hasData){
@@ -52,51 +53,18 @@ class _ViewAllFrelancersState extends State<ViewAllFrelancers> {
 
                           child: ListTile(
 
-                            onTap: (){
 
-
-                              showModalBottomSheet(context: context, builder: (context){
-
-
-
-                                return Container(
-                                  padding: EdgeInsets.all(20),
-                                  height: 200,
-                                  width: MediaQuery.of(context).size.width,
-
-
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-
-                                    children: [
-                                      Text("Name:${snapshot.data!.docs[index]['name']}"),
-                                      Text("Email:${snapshot.data!.docs[index]['email']}"),
-                                      Text("Phone:${snapshot.data!.docs[index]['phone']}"),
-                                      Text("ServiceType:${snapshot.data!.docs[index]['services']}"),
-                                      Text("City:${snapshot.data!.docs[index]['location']}"),
-                                      Text("Category:${snapshot.data!.docs[index]['category']}"),
-
-                                    ],
-                                  ),
-                                );
-                              });
-
-
-
-
-                            },
                             leading: CircleAvatar(
                               child: Text("${index+1}"),
                             ),
                             title: Text("Name:${snapshot.data!.docs[index]['name']}"),
-                            subtitle: Text("Email:${snapshot.data!.docs[index]['email']}"),
+                            subtitle: Text("Service:${snapshot.data!.docs[index]['service']}"),
                             trailing: IconButton(onPressed: (){
-                              FirebaseFirestore.instance.collection('freelancer').doc( "${snapshot.data!.docs[index]['uid']}").update({
+                              FirebaseFirestore.instance.collection('workers').doc( "${snapshot.data!.docs[index]['id']}").update({
                                 'status':0
                               });
                             },
-                            icon: Icon(Icons.delete),),
+                              icon: Icon(Icons.delete),),
 
                           ),
                         ),

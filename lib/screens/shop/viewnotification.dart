@@ -4,14 +4,14 @@ import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
-class ViewAllTips extends StatefulWidget {
-  const ViewAllTips({super.key});
+class ViewNotifications extends StatefulWidget {
+  const ViewNotifications({super.key});
 
   @override
-  State<ViewAllTips> createState() => _ViewAllTipsState();
+  State<ViewNotifications> createState() => _ViewNotificationsState();
 }
 
-class _ViewAllTipsState extends State<ViewAllTips> {
+class _ViewNotificationsState extends State<ViewNotifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _ViewAllTipsState extends State<ViewAllTips> {
 
         backgroundColor: primaryColor,
         title: Text(
-          "View Tips",
+          "View Notifications",
           style: appbarStyle,
         ),
       ),
@@ -28,7 +28,7 @@ class _ViewAllTipsState extends State<ViewAllTips> {
           height: double.infinity,
           width: double.infinity,
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("tips").
+              stream: FirebaseFirestore.instance.collection("notification").
               where("status",isEqualTo: 1).
               snapshots(),
               builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -71,29 +71,13 @@ class _ViewAllTipsState extends State<ViewAllTips> {
                                       children: [
                                         Text(snapshot.data!.docs[index]['title']),
                                         SizedBox(height:20,),
-                                        Text(snapshot.data!.docs[index]['description']),
+                                        Text(snapshot.data!.docs[index]['message']),
                                         SizedBox(height:20,),
 
 
                                         SizedBox(height:20,),
 
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
 
-                                            ElevatedButton(
-
-                                                onPressed: (){
-                                                  Navigator.pop(context);
-
-                                                }, child: Text("Cancel")),
-                                            ElevatedButton(onPressed: (){
-                                              FirebaseFirestore.instance.collection('notification').doc( "${snapshot.data!.docs[index]['uid']}").update({
-                                                'status':0
-                                              });
-                                            }, child: Text("Delete")),
-                                          ],
-                                        )
 
                                       ],
                                     ),
@@ -108,7 +92,7 @@ class _ViewAllTipsState extends State<ViewAllTips> {
                                 child: Text("${index+1}"),
                               ),
                               title: Text("Title:${snapshot.data!.docs[index]['title']}"),
-                              subtitle: Text("Description:${snapshot.data!.docs[index]['description']}"),
+                              subtitle: Text("Message:${snapshot.data!.docs[index]['message']}"),
                             ),
                           )
                       );

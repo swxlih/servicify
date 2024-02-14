@@ -10,6 +10,8 @@ import 'package:servicify/screens/common/errorpage.dart';
 import 'package:servicify/screens/common/signup.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:servicify/screens/freelancer/freelancerhome.dart';
+import 'package:servicify/screens/shop/shophome.dart';
 import 'package:servicify/screens/user/bottm_navigation_page.dart';
 
 import '../user/UserHomePage.dart';
@@ -23,6 +25,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  var _type;
   final _loginkey = GlobalKey<FormState>();
   var _usernamecontroller = TextEditingController();
   var _passwordcontroller = TextEditingController();
@@ -54,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
       DocumentSnapshot data = await _userService.loginUser(_user);
 
       print(data['usertype']);
-      var _type = data['usertype'];
+        var _type = data['usertype'];
 
       if (_type == "admin" ) {
         Navigator.pushAndRemoveUntil(
@@ -63,16 +67,26 @@ class _LoginPageState extends State<LoginPage> {
                 (route) => false);
       }else if(_type=="user" && data['status']==1){
 
-        // FirebaseFirestore.instance.collection('bookmarks').doc(data['uid']).set({
-        //   'userId':data['uid'],'courseIds': []
-        // });
+
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => BottomNavigationBarPage()),
                 (route) => false);
       }
-      else if(_type=="feelancer" && data['status']==1){
-        //freelancer_home
+      else if(_type=="freelancer" && data['status']==1){
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => FreelancerHome()),
+                (route) => false);
+
+      }
+
+
+      else if(_type=="shop" && data['status']==1){
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => ShopHome()),
+                (route) => false);
 
       }
       else{
@@ -120,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       //backgroundColor: Colors.red,
       body: Container(

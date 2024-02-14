@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/freelancer/addlapservice.dart';
 import 'package:servicify/screens/freelancer/addmobileservice.dart';
@@ -37,6 +38,14 @@ class _FreelancerHomeState extends State<FreelancerHome> {
           "Freelancer Home",
           style: appbarStyle,
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LoginPage()));
+          }, icon: Icon(Icons.logout_sharp,color: Colors.white,))
+        ],
       ),
       body: SafeArea(
         child: Column(

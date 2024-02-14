@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/screens/constants/colors.dart';
+import 'package:uuid/uuid.dart';
 
 import '../constants/textstyles.dart';
 
@@ -15,6 +17,17 @@ class _AddNotificationState extends State<AddNotification> {
 
   TextEditingController _titleController=TextEditingController();
   TextEditingController _msgController=TextEditingController();
+  var uuid = Uuid();
+  var v1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    v1 = uuid.v1();
+    super.initState();
+
+  }
 
 
   final _notiKey=GlobalKey<FormState>();
@@ -82,16 +95,30 @@ class _AddNotificationState extends State<AddNotification> {
 
                       onPressed: (){
 
-
-
+                        Navigator.pop(context);
 
                       }, child: Text("Cancel")),
                   ElevatedButton(onPressed: (){
 
                     if(_notiKey.currentState!.validate()){
 
+                      FirebaseFirestore.instance.collection("notification")
+                          .doc(v1).
 
-                      // send data to firebase
+                      set({
+                        "title": _titleController.text,
+                        "message":_msgController.text,
+                        "status": 1,
+                        "id":v1,
+                        "createdDate": DateTime.now(),
+
+                      })
+                          .then((value) { ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.lightGreen,
+                          content:
+                          Text("Send Succesfully")));
+                      Navigator.pop(context);}
+                      );
                     }
                   }, child: Text("Send")),
                 ],

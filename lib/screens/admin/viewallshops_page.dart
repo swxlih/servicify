@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
 import 'package:servicify/screens/constants/colors.dart';
@@ -27,31 +28,86 @@ class _ViewAllShopsState extends State<ViewAllShops> {
         padding: EdgeInsets.all(20),
         height: double.infinity,
         width: double.infinity,
-        child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context,index){
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection("shop").
+            where("status",isEqualTo: 1).
+            snapshots(),
+            builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if(!snapshot.hasData){
+                // still waiting for data to come
+                return Center(child: CircularProgressIndicator());
 
-  
-          return Card(
-            child: ListTile(
+              }
+              else if(snapshot.hasData &&  snapshot.data!.docs.length==0) {
+                // got data from snapshot but it is empty
 
-              onTap: (){
+                return Center(child: Text("No Data found"));
+              }
+              else
+                return ListView.builder(
+                  itemCount:snapshot.data!.docs.length ,
+                  itemBuilder: (context,index){
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
 
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AddLapService()));
+                        child: ListTile(
+
+                          onTap: (){
+
+
+                            showModalBottomSheet(context: context, builder: (context){
+
+
+
+                              return Container(
+                                padding: EdgeInsets.all(20),
+                                height: 200,
+                                width: MediaQuery.of(context).size.width,
+
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                                  children: [
+                                    Text("Name:${snapshot.data!.docs[index]['name']}"),
+                                    Text("Email:${snapshot.data!.docs[index]['email']}"),
+                                    Text("Phone:${snapshot.data!.docs[index]['phone']}"),
+                                    Text("ServiceType:${snapshot.data!.docs[index]['services']}"),
+                                    Text("City:${snapshot.data!.docs[index]['location']}"),
+                                    Text("Category:${snapshot.data!.docs[index]['category']}"),
+
+                                  ],
+                                ),
+                              );
+                            });
 
 
 
 
-              },
-              title: Text("Shop Name"),
-              subtitle: Text("Email"),
-            ),
-          );
+                          },
+                          leading: CircleAvatar(
+                            child: Text("${index+1}"),
+                          ),
+                          title: Text("Name:${snapshot.data!.docs[index]['name']}"),
+                          subtitle: Text("Email:${snapshot.data!.docs[index]['email']}"),
+                          trailing: IconButton(onPressed: (){
+                            FirebaseFirestore.instance.collection('shop').doc( "${snapshot.data!.docs[index]['uid']}").update({
+                              'status':0
+                            });
+                          },
+                            icon: Icon(Icons.delete),),
 
-        })
+                        ),
+                      ),
+                    );
+
+                  },
+
+                );
+            }
+        )
       ),
 
     );

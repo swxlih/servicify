@@ -1,8 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:servicify/constants/colors.dart';
 import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:servicify/screens/user/bottm_navigation_page.dart';
+
+import '../auth/models/user_model.dart';
+import '../auth/services/userservice.dart';
 
 
 class AddUserPage extends StatefulWidget {
@@ -226,7 +233,7 @@ class _AddUserPageState extends State<AddUserPage> {
                     onTap: (){
 
                       if(key.currentState!.validate()){
-
+                       _register();
 
 
                       }
@@ -242,7 +249,7 @@ class _AddUserPageState extends State<AddUserPage> {
                       ),
                       child: Center(
 
-                          child: Text("Save",style: GoogleFonts.robotoSlab(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),)
+                          child: Text("Register",style: GoogleFonts.robotoSlab(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),)
 
 
                       ),
@@ -262,4 +269,74 @@ class _AddUserPageState extends State<AddUserPage> {
       ),
     );
   }
+
+  bool _isLoading = false;
+  UserService _userService = UserService();
+  void _register() async {
+    setState(() {
+      _isLoading = true;
+    });
+    UserModel _user = UserModel(
+      email: _emailController.text,
+      password: _passwordController.text,
+      phone: _phoneController.text,
+      name: _nameController.text,
+      location: selectedCity
+
+
+    );
+
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await Future.delayed(Duration(seconds: 4));
+      await _userService.registerUser(_user).then((value) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.lightGreen,
+            content:
+            Text("Registered Succesfully")));
+
+      });
+
+      // Navigate to the next page after registration is complete
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      List err = e.toString().split("]");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.primaryColor,
+          duration: Duration(seconds: 3),
+          content: Container(
+            height: 85,
+            child: Center(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                      backgroundColor: Colors.amber,
+                      child: Icon(
+                        Icons.warning,
+                        color: Colors.white,
+                      )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(child: Text(err[1].toString())),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+
+    }
+
+    // Simulate registration delay
+  }
+
 }

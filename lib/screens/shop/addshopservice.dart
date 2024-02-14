@@ -1,6 +1,8 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,10 +11,14 @@ import 'package:servicify/screens/admin/admin_home_page.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/service.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:path/path.dart' as path;
+import 'package:uuid/uuid.dart';
 
 
 class AddLapService extends StatefulWidget {
-  const AddLapService({super.key});
+  var createdby;
+  var createdid;
+  AddLapService({super.key,this.createdby,this.createdid});
 
   @override
   State<AddLapService> createState() => _AddLapServiceState();
@@ -30,7 +36,16 @@ class _AddLapServiceState extends State<AddLapService> {
 
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
+  var uuid = Uuid();
+  var v1;
+  var url;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    v1 = uuid.v1();
+  }
 
 
 
@@ -219,11 +234,41 @@ class _AddLapServiceState extends State<AddLapService> {
                     onTap: (){
 
                       if(key.currentState!.validate()){
-                        showsnackbar("Saved Succesfully");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminHomePage()));
+                        {
+                          var fileExtension = path.extension(_image!.path);
+                          print(fileExtension);
+                          String fileName =DateTime.now().toString();
+                          var ref =
+                          FirebaseStorage.instance.ref().child('laps/$fileName');
+                          UploadTask uploadTask = ref.putFile(File(_image!.path));
+
+
+                          uploadTask.then((res) async{
+                            url = (await ref.getDownloadURL()).toString();
+
+                          }).then((value) {
+                            FirebaseFirestore.instance.collection("lapservices")
+                                .doc(v1).
+
+                            set({
+                              'title':_titleController.text,
+                              'description':_descriptinController.text,
+                              'cost':_costController.text,
+                              'servicetype':selectedService,
+
+                              "status": 1,
+                              "id":v1,
+                              "createdDate": DateTime.now(),
+                              'url':url.toString(),
+                              'createdby':widget.createdby,
+                              'createdid':widget.createdid
+                            })
+                                .then((value) { showsnackbar("Succesfully Added!");
+                            Navigator.pop(context);}
+                            );
+                          });
+
+                        }
                       }
 
                     },

@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:uuid/uuid.dart';
 class AddWorker extends StatefulWidget {
-  const AddWorker({super.key});
+  var createdby;
+  var createdid;
+  AddWorker({super.key,this.createdid,this.createdby});
 
   @override
   State<AddWorker> createState() => _AddWorkerState();
@@ -23,6 +27,16 @@ class _AddWorkerState extends State<AddWorker> {
   ];
 
   String? selectedservice;
+  var uuid = Uuid();
+  var v1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    v1 = uuid.v1();
+    super.initState();
+  }
 
 
 
@@ -168,7 +182,7 @@ class _AddWorkerState extends State<AddWorker> {
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
 
-                    hintText: "Select City",
+                    hintText: "Select Service",
                     hintStyle: TextStyle(
                       color: primaryColor,
                     ),
@@ -204,11 +218,26 @@ class _AddWorkerState extends State<AddWorker> {
                     onTap: (){
 
                       if(key.currentState!.validate()){
-                        showsnackbar("Registered Succesfully");
-                        Navigator.pop(context);
-
-
-
+                        FirebaseFirestore.instance
+                            .collection("workers")
+                            .doc(v1)
+                            .set({
+                          "name": _nameController.text,
+                          "email": _emailController.text,
+                          'phone':_phoneController.text,
+                          'experience':_expController.text,
+                          'service':selectedservice,
+                          "status": 1,
+                          "id": v1,
+                          "createdDate": DateTime.now(),
+                          'createdby':widget.createdby,
+                          'createdid':widget.createdid
+                        }).then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.lightGreen,
+                              content: Text("Send Succesfully")));
+                          Navigator.pop(context);
+                        });
                       }
 
                     },

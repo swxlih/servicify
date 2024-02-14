@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:servicify/constants/colors.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
 import 'package:servicify/screens/user/bottomnavigation_widget.dart';
+import 'package:servicify/screens/user/profilepage.dart';
 import 'package:servicify/screens/user/services/bottombar_service.dart';
 import 'package:servicify/screens/user/settings/settings_page.dart';
 
@@ -87,7 +88,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       UserHomePage(),
       Text("hello"),
       Settingpage(),
-      Text("hello"),
+      ProfilePage(),
     ];
   }
 

@@ -4,14 +4,14 @@ import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
-class ViewAllTips extends StatefulWidget {
-  const ViewAllTips({super.key});
+class ViewTips extends StatefulWidget {
+  const ViewTips({super.key});
 
   @override
-  State<ViewAllTips> createState() => _ViewAllTipsState();
+  State<ViewTips> createState() => _ViewTipsState();
 }
 
-class _ViewAllTipsState extends State<ViewAllTips> {
+class _ViewTipsState extends State<ViewTips> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,23 +77,6 @@ class _ViewAllTipsState extends State<ViewAllTips> {
 
                                         SizedBox(height:20,),
 
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-
-                                            ElevatedButton(
-
-                                                onPressed: (){
-                                                  Navigator.pop(context);
-
-                                                }, child: Text("Cancel")),
-                                            ElevatedButton(onPressed: (){
-                                              FirebaseFirestore.instance.collection('notification').doc( "${snapshot.data!.docs[index]['uid']}").update({
-                                                'status':0
-                                              });
-                                            }, child: Text("Delete")),
-                                          ],
-                                        )
 
                                       ],
                                     ),
