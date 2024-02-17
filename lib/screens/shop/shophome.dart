@@ -3,9 +3,11 @@ import 'package:servicify/screens/admin/viewAllnotifications.dart';
 import 'package:servicify/screens/admin/viewtips.dart';
 import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:servicify/screens/shop/acceptedshoprequest.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
 import 'package:servicify/screens/shop/addworker.dart';
+import 'package:servicify/screens/shop/shopbooking.dart';
 import 'package:servicify/screens/shop/viewlaptopservice.dart';
 import 'package:servicify/screens/shop/viewmobileservice.dart';
 import 'package:servicify/screens/shop/viewnotification.dart';
@@ -306,6 +308,54 @@ class _ShopHomeState extends State<ShopHome> {
                         width: 100,
                         color: Colors.blue,
                         child: Center(child: Text("View Workerss",style: TextStyle(color: Colors.white),)),
+                      ),
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: InkWell(
+                      onTap: (){
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShopBooking(id: _uid,)));
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        color: Colors.blue,
+                        child: Center(child: Text("View Bookings",style: TextStyle(color: Colors.white),)),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: InkWell(
+                      onTap: (){
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AcceptShopRequest(
+                                  id: _uid,
+                                )));
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        color: Colors.blue,
+                        child: Center(child: Text("Accepted Request",style: TextStyle(color: Colors.white),)),
                       ),
                     ),
                   ),

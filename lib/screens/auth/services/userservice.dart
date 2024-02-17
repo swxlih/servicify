@@ -125,11 +125,11 @@ class UserService {
 
     if (snap['usertype'] == "user") {
       var user = await _userCollection.doc(userCredential.user!.uid).get();
-      String? _name = snap['name'];
+      String? _name = user['name'];
       String? _email = snap['email'];
-      String? _phone = snap['phone'];
-      String? _location = snap['location'] ?? "Not Set";
-      String? _imgurl = snap['imgurl'] ?? "assets/images/profile.png";
+      String? _phone = user['phone'];
+      String? _location = user['location'] ?? "Not Set";
+      String? _imgurl = user['imgurl'] ?? "assets/images/profile.png";
       String? _type = snap['usertype'];
       String? _uid = snap['uid'];
 
@@ -142,7 +142,7 @@ class UserService {
       await _pref.setString('phone', _phone!);
       await _pref.setString('usertype', _type!);
       await _pref.setString('imgurl', _imgurl!);
-      await _pref.setString('city', _location!);
+      await _pref.setString('location', _location!);
 
 
       return user;

@@ -39,7 +39,7 @@ class _ViewMobileServicesState extends State<ViewMobileServices> {
             width: double.infinity,
             child:StreamBuilder(
                 stream: FirebaseFirestore.instance.collection("mobileservices").
-                where("status",isEqualTo: 1).where('createdby',isNotEqualTo: widget.createdid).
+                where("status",isEqualTo: 1).where('createdid',isEqualTo: widget.createdid).
                 snapshots(),
                 builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                   if(!snapshot.hasData){

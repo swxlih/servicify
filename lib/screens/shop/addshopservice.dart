@@ -30,6 +30,8 @@ class _AddLapServiceState extends State<AddLapService> {
   TextEditingController _titleController=TextEditingController();
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
+  TextEditingController _phoneController=TextEditingController();
+
   String?selectedService;
 
   final key=GlobalKey<FormState>();
@@ -45,6 +47,8 @@ class _AddLapServiceState extends State<AddLapService> {
     // TODO: implement initState
     super.initState();
     v1 = uuid.v1();
+    print(widget.createdby);
+    print(widget.createdid);
   }
 
 
@@ -140,6 +144,33 @@ class _AddLapServiceState extends State<AddLapService> {
                   decoration: InputDecoration(
 
                     hintText: "Cost",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
+                  ),
+                ),
+                SizedBox(height: 10,),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Field is mandatory";
+                    }
+                  },
+                  cursorColor: primaryColor,
+                  controller: _phoneController,
+
+                  decoration: InputDecoration(
+
+                    hintText: "Phone Number",
                     hintStyle: TextStyle(
                       color: primaryColor,
                     ),
@@ -255,6 +286,7 @@ class _AddLapServiceState extends State<AddLapService> {
                               'description':_descriptinController.text,
                               'cost':_costController.text,
                               'servicetype':selectedService,
+                              'phone':_phoneController.text,
 
                               "status": 1,
                               "id":v1,

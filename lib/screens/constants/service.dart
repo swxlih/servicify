@@ -3,8 +3,11 @@ List<String> mobileservices=[
   'Battery replacement',
   'Charging port repair',
   'Water damage repair',
+  'Body replacement'
   'Camera repair',
-  'Speaker and microphone repair'
+  'Speaker and microphone repair',
+  'Software'
+
 ];
 
 List<String?> lapservices=[
@@ -16,3 +19,5 @@ List<String?> lapservices=[
   'Anti-Virus Installation / Removal'
 
 ];
+
+

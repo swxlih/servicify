@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/admin/admin_home_page.dart';
 import 'package:servicify/screens/constants/colors.dart';
+import 'package:servicify/screens/constants/service.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
@@ -29,8 +30,9 @@ class _AddMobileServiceState extends State<AddMobileService> {
   TextEditingController _titleController=TextEditingController();
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
+  TextEditingController _phnoController=TextEditingController();
 
-
+  String? selectedService;
 
   final key=GlobalKey<FormState>();
 
@@ -135,6 +137,33 @@ class _AddMobileServiceState extends State<AddMobileService> {
                     }
                   },
 
+                  controller: _phnoController,
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+
+                    hintText: "Phone Number",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
+                  ),
+                ),
+                SizedBox(height: 10,),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Field is mandatory";
+                    }
+                  },
+
                   controller: _costController,
                   cursorColor: primaryColor,
                   decoration: InputDecoration(
@@ -155,7 +184,39 @@ class _AddMobileServiceState extends State<AddMobileService> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                
+
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+
+                    hintText: "Select Service Type",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
+                  ),
+                  value: selectedService,
+                  items: mobileservices
+                      .map((item) => DropdownMenuItem<String>(
+                      value: item, child: Text(item!)))
+                      .toList(),
+                  onChanged: (value) {
+
+                    selectedService=value;
+
+                  },
+                ),
+
+                SizedBox(height: 10,),
+
+
 
 
                 Padding(
@@ -228,7 +289,9 @@ class _AddMobileServiceState extends State<AddMobileService> {
                               "createdDate": DateTime.now(),
                               'url':url.toString(),
                               'createdby':widget.createdby,
-                              'createdid':widget.createdid
+                              'createdid':widget.createdid,
+                              'phone':_phnoController.text,
+                              'servicetype':selectedService
                             })
                                 .then((value) { showsnackbar("Succesfully Added!");
                             Navigator.pop(context);}
