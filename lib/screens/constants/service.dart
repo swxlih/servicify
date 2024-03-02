@@ -10,7 +10,7 @@ List<String> mobileservices=[
 
 ];
 
-List<String?> lapservices=[
+List<String> lapservices=[
   'Software repair services',
   'Motherboard Replacement',
   'Hardware repair services',

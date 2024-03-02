@@ -28,6 +28,8 @@ class UserHomePage extends StatefulWidget {
 }
 
 class _UserHomePageState extends State<UserHomePage> {
+
+  var bookmarkstatus=0;
   String? _name;
   String? _email;
   String? _phone;
@@ -72,7 +74,11 @@ class _UserHomePageState extends State<UserHomePage> {
     super.initState();
   }
 
-
+  void toggleBookmark() {
+    setState(() {
+      bookmarkstatus = (bookmarkstatus == 0) ? 1 : 0; // Toggle bookmarkStatus
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,43 +91,69 @@ class _UserHomePageState extends State<UserHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-
             Container(
-              padding: EdgeInsets.all(20),
-              height: 180,
-              width: MediaQuery.of(context).size.width*0.88,
-              decoration: BoxDecoration(
-                  color:Colors.teal,
-                  borderRadius: BorderRadius.circular(15)
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("40% off",style: TextStyle(color: Colors.white,fontSize: 28),),
-                        Text("Full car wash",style: TextStyle(color: Colors.white,fontSize: 20)),
-                        Container(
-                          height: 45,
-                          width: 200,
-                          decoration: BoxDecoration(color: Colors.black,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Center(child: Text("Book Now".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 16)),),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Image.asset('assets/img/logo.png'),
-                    ),
-                  )
+                height: 200,
+                width: double.infinity,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection("tips").
+                    where("status",isEqualTo: 1).limit(1).orderBy('createdDate',descending: false).
+                    snapshots(),
+                    builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                      if(!snapshot.hasData){
+                        // still waiting for data to come
+                        return Center(child: CircularProgressIndicator());
 
-                ],
-              ),
+                      }
+                      else if(snapshot.hasData &&  snapshot.data!.docs.length==0) {
+                        // got data from snapshot but it is empty
+
+                        return Center(child: Text("No Data found"));
+                      }
+                      else
+                        return ListView.builder(
+                          itemCount:snapshot.data!.docs.length ,
+                          itemBuilder: (context,index){
+                            return   Container(
+                              padding: EdgeInsets.all(20),
+                              height: 180,
+                              width: MediaQuery.of(context).size.width*0.88,
+                              decoration: BoxDecoration(
+                                  color:Colors.teal,
+                                  borderRadius: BorderRadius.circular(15)
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text("Tip of the day",style: TextStyle(color: Colors.white,fontSize: 24),),
+
+                                        Text(snapshot.data!.docs[index]['title'],
+                                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+
+                                        Text(snapshot.data!.docs[index]['description'],
+                                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: Image.asset('assets/img/logo.png'),
+                                    ),
+                                  )
+
+                                ],
+                              ),
+                            );
+
+                          },
+
+                        );
+                    }
+                )
             ),
+
 
             SizedBox(height: 20,),
 
@@ -216,15 +248,36 @@ class _UserHomePageState extends State<UserHomePage> {
                                       left: 20,
 
                                       child: Image.asset('assets/img/logo.png',height: 40,width: 60,),),
+
+
+                                    Positioned(
+                                      top: 5,
+                                      right: 10,
+                                      child: IconButton(
+                                        icon: (snapshot.data!.docs[index]['bookmarkstatus'] == 0)
+                                            ? Icon(Icons.bookmark_border)
+                                            : Icon(Icons.bookmark),
+                                        onPressed: (){
+                                          setState(() {
+                                            FirebaseFirestore.instance.collection('lapservices').doc(snapshot.data!.docs[index]['id']).update({
+                                              'bookmarkstatus':1
+                                            });
+                                          });
+                                        }, // Toggle bookmarkStatus when icon is tapped
+                                      ),
+                                    ),
+
                                     Positioned(
                                       left: 100,
-                                      top: 15,
+                                      top: 35,
                                       child: Expanded(
-                                          child: Text(snapshot.data!.docs[index]['servicetype'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)),
+                                          child:
+                                          Text(snapshot.data!.docs[index]['servicetype'],
+                                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)),
                                     ),
                                     Positioned(
                                       left: 160,
-                                      top: 50,
+                                      top: 65,
                                       child: Text(snapshot.data!.docs[index]['title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                                     ),
 

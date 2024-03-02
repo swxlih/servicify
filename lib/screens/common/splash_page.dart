@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
 
   getData() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    _type = await _pref.getString('type');
+    _type = await _pref.getString('usertype');
     setState(() {});
   }
 
@@ -122,22 +122,18 @@ class MobileLayout extends StatelessWidget {
           width: size.width,
           child: const SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 HeaderWidget(),
-                SizedBox(
-                  height: 20,
-                ),
+
                 ImageWidget(
                     height: 350,
                     width: 350,
-                    imgpath: 'splash.png'
+                    imgpath: 'logo.png'
                 ),
-                SizedBox(
-                  height: 40,
-                ),
-                Center(child: AppButtonWidget()),
+
+               // Center(child: AppButtonWidget()),
               ],
             ),
           ),

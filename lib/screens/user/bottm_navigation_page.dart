@@ -2,11 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicify/constants/colors.dart';
+import 'package:servicify/screens/shop/viewnotification.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
+import 'package:servicify/screens/user/acceptedbookings.dart';
+import 'package:servicify/screens/user/bookmark.dart';
 import 'package:servicify/screens/user/bottomnavigation_widget.dart';
 import 'package:servicify/screens/user/profilepage.dart';
 import 'package:servicify/screens/user/services/bottombar_service.dart';
 import 'package:servicify/screens/user/settings/settings_page.dart';
+import 'package:servicify/screens/user/userbookings.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,7 +90,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     await getData();
     _widgetOption = [
       UserHomePage(),
-      Text("hello"),
+      BookMarkPage(),
       Settingpage(),
       ProfilePage(),
     ];
@@ -121,6 +125,49 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                       ],
                     ),
                   ),
+                  InkWell(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewNotifications()));
+                      },
+                    child: ListTile(
+                      title:
+                      Text("Notifications", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserBookings(
+                                createdid: _uid,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Bookings", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AcceptedBookings(
+                                createdid: _uid,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Accepted Bookings", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
                   ListTile(
                     title:
                         Text("Logout", style: TextStyle(color: Colors.white)),
@@ -136,20 +183,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           backgroundColor: AppColors.scaffoldColor,
           appBar: AppBar(
             backgroundColor: AppColors.scaffoldColor,
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: IconButton(
-                  onPressed: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.grid_view_outlined,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+       iconTheme: IconThemeData(color: Colors.white),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),

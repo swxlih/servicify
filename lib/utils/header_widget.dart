@@ -11,26 +11,28 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
+    return Center(
+      child: RichText(
 
-      text:
-      TextSpan(
-          text:  "Service\n",
-          style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: "Clash Display",fontWeight: FontWeight.w500)
-          ,children: [
+        text:
         TextSpan(
-            text: "at your ",
-            style: TextStyle(color: AppColors.btnPrimaryColor,fontSize: 33,fontFamily: "Clash Display",fontWeight: FontWeight.w700)
-        ),
-
-        TextSpan(
-            text: "Door Steps \n",
+            text:  "Service\n",
             style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: "Clash Display",fontWeight: FontWeight.w500)
-        ),
+            ,children: [
+          TextSpan(
+              text: "at your ",
+              style: TextStyle(color: AppColors.btnPrimaryColor,fontSize: 33,fontFamily: "Clash Display",fontWeight: FontWeight.w700)
+          ),
+
+          TextSpan(
+              text: "Door Steps \n",
+              style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: "Clash Display",fontWeight: FontWeight.w500)
+          ),
 
 
-      ]),
+        ]),
 
+      ),
     );
   }
 }

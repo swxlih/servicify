@@ -285,6 +285,7 @@ class _AddFreeLapServiceState extends State<AddFreeLapService> {
                               'servicetype':selectedService,
                               'phone':_phnoController.text,
 
+                              'bookmarkstatus':0,
                               "status": 1,
                               "id":v1,
                               "createdDate": DateTime.now(),

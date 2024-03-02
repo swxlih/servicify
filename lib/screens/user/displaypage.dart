@@ -81,21 +81,12 @@ class _DisplayPageState extends State<DisplayPage>
                             ),
 
                             child: ListTile(
-
-
                               onTap: (){
-
-
                                 showModalBottomSheet(context: context, builder: (context){
-
-
-
                                   return Container(
                                     padding: EdgeInsets.all(30),
                                     height:350,
                                     width: MediaQuery.of(context).size.width,
-
-
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.start,

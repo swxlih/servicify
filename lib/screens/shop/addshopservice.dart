@@ -254,10 +254,6 @@ class _AddLapServiceState extends State<AddLapService> {
                 ),
 
 
-
-
-
-
                 SizedBox(height: 20,),
 
                 Center(
@@ -287,6 +283,7 @@ class _AddLapServiceState extends State<AddLapService> {
                               'cost':_costController.text,
                               'servicetype':selectedService,
                               'phone':_phoneController.text,
+                              "bookmarkstatus": 0,
 
                               "status": 1,
                               "id":v1,

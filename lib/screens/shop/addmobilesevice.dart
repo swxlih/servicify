@@ -291,7 +291,8 @@ class _AddMobileServiceState extends State<AddMobileService> {
                               'createdby':widget.createdby,
                               'createdid':widget.createdid,
                               'phone':_phnoController.text,
-                              'servicetype':selectedService
+                              'servicetype':selectedService,
+                              'bookmarkstatus':0,
                             })
                                 .then((value) { showsnackbar("Succesfully Added!");
                             Navigator.pop(context);}
