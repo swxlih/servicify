@@ -12,6 +12,7 @@ import 'package:servicify/screens/user/lapserviceman.dart';
 import 'package:servicify/screens/user/portpage.dart';
 import 'package:servicify/screens/user/softwarepage.dart';
 import 'package:servicify/screens/user/speakerpage.dart';
+import 'package:servicify/screens/user/tips.dart';
 import 'package:servicify/screens/user/waterpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,11 +75,7 @@ class _UserHomePageState extends State<UserHomePage> {
     super.initState();
   }
 
-  void toggleBookmark() {
-    setState(() {
-      bookmarkstatus = (bookmarkstatus == 0) ? 1 : 0; // Toggle bookmarkStatus
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +88,19 @@ class _UserHomePageState extends State<UserHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            InkWell(
+                onTap: (){
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AllTips()));
+
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 300,bottom: 10),
+                  child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 14),),
+                )),
             Container(
                 height: 200,
                 width: double.infinity,
@@ -234,20 +244,20 @@ class _UserHomePageState extends State<UserHomePage> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
-                                        top: 0,
-                                        bottom: 0,
-                                        left: 0,
-                                        child: Container(
-                                          height: 130,
-                                          width: 100,
-                                          color: Color(0xFF80CBC4),
-                                        )),
-                                    Positioned(
-                                      top: 50,
-                                      left: 20,
 
-                                      child: Image.asset('assets/img/logo.png',height: 40,width: 60,),),
+                                    Positioned(
+                                      top: 4,
+                                      left: 4,
+                                      child: Container(
+                                        height: 131,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(snapshot.data!.docs[index]['url'],),
+                                            fit: BoxFit.cover
+                                          )
+                                        ),
+                                      )),
 
 
                                     Positioned(
@@ -268,12 +278,12 @@ class _UserHomePageState extends State<UserHomePage> {
                                     ),
 
                                     Positioned(
-                                      left: 100,
+                                      left: 115,
                                       top: 35,
                                       child: Expanded(
                                           child:
                                           Text(snapshot.data!.docs[index]['servicetype'],
-                                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)),
+                                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
                                     ),
                                     Positioned(
                                       left: 160,
@@ -336,11 +346,8 @@ class _UserHomePageState extends State<UserHomePage> {
                       child: Column(
                         children: [
                           CircleAvatar(
-                            backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Display",style: TextStyle(color: Colors.white))
                         ],
@@ -367,9 +374,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Battery change",style: TextStyle(color: Colors.white))
                         ],
@@ -396,9 +401,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Port service",style: TextStyle(color: Colors.white))
                         ],
@@ -426,9 +429,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Body changing",style: TextStyle(color: Colors.white))
                         ],
@@ -456,9 +457,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Camera Change",style: TextStyle(color: Colors.white))
                         ],
@@ -485,9 +484,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Water Damage",style: TextStyle(color: Colors.white))
                         ],
@@ -514,9 +511,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Speaker Repair",style: TextStyle(color: Colors.white))
                         ],
@@ -544,9 +539,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           CircleAvatar(
                             backgroundColor: primaryColor,
                             radius: 40,
-                            child: Center(
-                              child: Icon(Icons.phone_iphone,size: 33,color: Colors.white,),
-                            ),
+                            backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
                           Text("Software",style: TextStyle(color: Colors.white),)
                         ],

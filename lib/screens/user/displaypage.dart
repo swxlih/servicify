@@ -41,6 +41,7 @@ class _DisplayPageState extends State<DisplayPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Screen repair",

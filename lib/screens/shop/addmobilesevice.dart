@@ -219,38 +219,38 @@ class _AddMobileServiceState extends State<AddMobileService> {
 
 
 
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    "Upload Photo",
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      showImage();
-                    },
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      child: _image!=null?ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          File(_image!.path),
-                          fit: BoxFit.cover,
-                        ),
-                      ):Container(
-                        color: Colors.grey,
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 20,
-                          color: Colors.grey[100],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(10),
+                //   child: Text(
+                //     "Upload Photo",
+                //   ),
+                // ),
+                // SizedBox(height: 20,),
+                // Center(
+                //   child: GestureDetector(
+                //     onTap: (){
+                //       showImage();
+                //     },
+                //     child: Container(
+                //       width: 250,
+                //       height: 250,
+                //       child: _image!=null?ClipRRect(
+                //         borderRadius: BorderRadius.circular(20),
+                //         child: Image.file(
+                //           File(_image!.path),
+                //           fit: BoxFit.cover,
+                //         ),
+                //       ):Container(
+                //         color: Colors.grey,
+                //         child: Icon(
+                //           Icons.camera_alt,
+                //           size: 20,
+                //           color: Colors.grey[100],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
 
 
@@ -265,39 +265,26 @@ class _AddMobileServiceState extends State<AddMobileService> {
 
                       if(key.currentState!.validate()){
                         {
-                          var fileExtension = path.extension(_image!.path);
-                          print(fileExtension);
-                          String fileName =DateTime.now().toString();
-                          var ref =
-                          FirebaseStorage.instance.ref().child('mobiles/$fileName');
-                          UploadTask uploadTask = ref.putFile(File(_image!.path));
+                          FirebaseFirestore.instance.collection("mobileservices")
+                              .doc(v1).
 
+                          set({
+                            'title':_titleController.text,
+                            'description':_descriptinController.text,
+                            'cost':_costController.text,
+                            "status": 1,
+                            "id":v1,
+                            "createdDate": DateTime.now(),
 
-                          uploadTask.then((res) async{
-                            url = (await ref.getDownloadURL()).toString();
-
-                          }).then((value) {
-                            FirebaseFirestore.instance.collection("mobileservices")
-                                .doc(v1).
-
-                            set({
-                              'title':_titleController.text,
-                              'description':_descriptinController.text,
-                              'cost':_costController.text,
-                              "status": 1,
-                              "id":v1,
-                              "createdDate": DateTime.now(),
-                              'url':url.toString(),
-                              'createdby':widget.createdby,
-                              'createdid':widget.createdid,
-                              'phone':_phnoController.text,
-                              'servicetype':selectedService,
-                              'bookmarkstatus':0,
-                            })
-                                .then((value) { showsnackbar("Succesfully Added!");
-                            Navigator.pop(context);}
-                            );
-                          });
+                            'createdby':widget.createdby,
+                            'createdid':widget.createdid,
+                            'phone':_phnoController.text,
+                            'servicetype':selectedService,
+                            'bookmarkstatus':0,
+                          })
+                              .then((value) { showsnackbar("Succesfully Added!");
+                          Navigator.pop(context);}
+                          );
 
                         }
                       }

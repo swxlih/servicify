@@ -42,6 +42,7 @@ class _CameraPageState extends State<CameraPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Camera repair",

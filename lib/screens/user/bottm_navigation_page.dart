@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicify/constants/colors.dart';
+import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/shop/viewnotification.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
 import 'package:servicify/screens/user/acceptedbookings.dart';
@@ -125,19 +126,19 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                       ],
                     ),
                   ),
-                  InkWell(
-                      onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewNotifications()));
-                      },
-                    child: ListTile(
-                      title:
-                      Text("Notifications", style: TextStyle(color: Colors.white)),
-
-                    ),
-                  ),
+                  // InkWell(
+                  //     onTap: (){
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) => ViewNotifications()));
+                  //     },
+                  //   child: ListTile(
+                  //     title:
+                  //     Text("Notifications", style: TextStyle(color: Colors.white)),
+                  //
+                  //   ),
+                  // ),
                   InkWell(
                     onTap: (){
                       Navigator.push(
@@ -173,7 +174,12 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                         Text("Logout", style: TextStyle(color: Colors.white)),
                     trailing: IconButton(
                       onPressed: () {
-                        _logoutAndNavigateToLogin(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage(
+
+                                )));
                       },
                       icon: Icon(Icons.logout, color: Colors.white),
                     ),

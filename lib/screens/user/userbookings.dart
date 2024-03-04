@@ -15,7 +15,7 @@ class _UserBookingsState extends State<UserBookings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Bookings",

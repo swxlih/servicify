@@ -42,6 +42,7 @@ class _WaterPageState extends State<WaterPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Water damage repair",

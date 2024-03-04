@@ -154,6 +154,7 @@ class _ShopHomeState extends State<ShopHome> {
       ),
       appBar: AppBar(
 
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Shop Home",
@@ -163,207 +164,255 @@ class _ShopHomeState extends State<ShopHome> {
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddLapService(
-                                  createdby: _name,
-                                  createdid: _uid,
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("Add Lap Services",style: TextStyle(color: Colors.white),)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddLapService(
+                                        createdby: _name,
+                                        createdid: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "Add Lap services",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        height: 100,
+                        width: 2,
+                        color: Colors.white,
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewLapServices(
+                                        createdid: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "View All",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Padding(  
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewLapServices(
-                                  createdid: _uid,
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("View lap Services",style: TextStyle(color: Colors.white))),
-                      ),
-                    ),
-                  ),
-                ),
-              ],  
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddMobileService(
-                                  createdby: _name,
-                                  createdid: _uid,
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("Add Mobile Services",style: TextStyle(color: Colors.white),)),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(  
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewMobileServices(
-                                  createdid: _uid,
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("View mobile Services",style: TextStyle(color: Colors.white))),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddWorker(
-                                  createdid: _uid,
-                                  createdby:_name
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("Add Workerss",style: TextStyle(color: Colors.white),)),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewWorkers(
-                                    createdid: _uid,
-
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("View Workerss",style: TextStyle(color: Colors.white),)),
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShopBooking(id: _uid,)));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("View Bookings",style: TextStyle(color: Colors.white),)),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AcceptShopRequest(
-                                  id: _uid,
-                                )));
-                      },
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.blue,
-                        child: Center(child: Text("Accepted Request",style: TextStyle(color: Colors.white),)),
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
+              ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddMobileService(
+                                        createdby: _name,
+                                        createdid: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "Add Mobile services",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 2,
+                        color: Colors.white,
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewMobileServices(
+                                        createdid: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "View All",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddWorker(
+                                          createdid: _uid,
+                                          createdby:_name
+                                      )));
+                            },
+                            child: Text(
+                              "Add Workers",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 2,
+                        color: Colors.white,
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewWorkers(
+                                        createdid: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "View All",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>ShopBooking(id: _uid,)));
+                            },
+                            child: Text(
+                              "View Booking",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 2,
+                        color: Colors.white,
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>AcceptShopRequest(
+                                        id: _uid,
+                                      )));
+                            },
+                            child: Text(
+                              "Accepted Request",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
           ],
         ),

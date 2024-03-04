@@ -22,6 +22,7 @@ class _LapServicesState extends State<LapServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "LapTop Services",
@@ -100,7 +101,17 @@ class _LapServicesState extends State<LapServices> {
                                       top: 50,
                                       left: 20,
 
-                                      child: Image.asset('assets/img/logo.png',height: 40,width: 60,),),
+                                      child: Container(
+                                        height: 40,
+                                        width: 60,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(snapshot.data!.docs[index]['url'],)
+                                            )
+                                        ),
+                                      )
+
+                                    ),
                                     Positioned(
                                       left: 100,
                                       top: 15,

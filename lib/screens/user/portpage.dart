@@ -41,6 +41,7 @@ class _PortPageState extends State<PortPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Charging port repair",

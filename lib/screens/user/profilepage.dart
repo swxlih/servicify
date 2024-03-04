@@ -83,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         actions: [
           Padding(
             padding: const EdgeInsets.all(13),

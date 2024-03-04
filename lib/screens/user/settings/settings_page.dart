@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/constants/colors.dart';
 import 'package:servicify/screens/common/login_page.dart';
+import 'package:servicify/screens/shop/viewnotification.dart';
 import 'package:servicify/screens/user/settings/aboutus.dart';
 import 'package:servicify/screens/user/settings/contact_page.dart';
 import 'package:servicify/screens/user/settings/forgot_password.dart';
@@ -65,10 +66,18 @@ class _SettingpageState extends State<Settingpage> {
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 8.0, bottom: 8, top: 10),
-                          child: Text(
-                            "App Notifications",
-                            style: TextStyle(
-                              fontSize: 20,
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewNotifications()));
+                            },
+                            child: Text(
+                              "App Notifications",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -103,42 +112,42 @@ class _SettingpageState extends State<Settingpage> {
                           thickness: 1.5,
                           color: Colors.black26,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-                          child: Text(
-                            "Clear History",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        Divider(
-                          indent: 8,
-                          endIndent: 8,
-                          thickness: 1.5,
-                          color: Colors.black26,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // String currentUserId =
-                            //     FirebaseAuth.instance.currentUser?.uid ?? '';
-                            // BookmarkService()
-                            //     .clearBookmarks(currentUserId)
-                            //     .then((value) => ScaffoldMessenger.of(context)
-                            //         .showSnackBar(SnackBar(
-                            //             content: Text("Bookmarks Cleared"))));
-                          },
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, bottom: 10),
-                            child: Text(
-                              "Clear Bookmarks",
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 8.0, bottom: 8),
+                        //   child: Text(
+                        //     "Clear History",
+                        //     style: TextStyle(
+                        //       fontSize: 20,
+                        //     ),
+                        //   ),
+                        // ),
+                        // Divider(
+                        //   indent: 8,
+                        //   endIndent: 8,
+                        //   thickness: 1.5,
+                        //   color: Colors.black26,
+                        // ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     // String currentUserId =
+                        //     //     FirebaseAuth.instance.currentUser?.uid ?? '';
+                        //     // BookmarkService()
+                        //     //     .clearBookmarks(currentUserId)
+                        //     //     .then((value) => ScaffoldMessenger.of(context)
+                        //     //         .showSnackBar(SnackBar(
+                        //     //             content: Text("Bookmarks Cleared"))));
+                        //   },
+                        //   child: Padding(
+                        //     padding:
+                        //         const EdgeInsets.only(left: 8.0, bottom: 10),
+                        //     child: Text(
+                        //       "Clear Bookmarks",
+                        //       style: TextStyle(
+                        //         fontSize: 20,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

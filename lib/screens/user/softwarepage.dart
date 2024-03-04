@@ -41,6 +41,7 @@ class _SoftwarePageState extends State<SoftwarePage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Software",

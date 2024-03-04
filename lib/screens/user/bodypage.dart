@@ -41,6 +41,7 @@ class _BodyPageState extends State<BodyPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Body replacement",

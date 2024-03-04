@@ -20,14 +20,14 @@ class ContactUsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             _buildContactInfo(
-              "Email: support@househub.com",
+              "Email: support@servicify.com",
               Icons.email,
-                  () => _launchEmail("support@househub.com"),
+                  () => _launchEmail("support@servicify.com"),
             ),
             _buildContactInfo(
-              "Phone: +1 (123) 456-7890",
+              "Phone: +91 7907021182",
               Icons.phone,
-                  () => _launchPhone("+11234567890"),
+                  () => _launchPhone("+917907021182"),
             ),
             _buildContactInfo(
               "Visit our office:",

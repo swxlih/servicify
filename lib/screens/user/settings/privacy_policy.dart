@@ -30,7 +30,9 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             _buildPrivacyPolicyPoint(
-              "Personal Information: We may collect personal information such as name, email, and phone number when you create an account or make a booking.",
+              "Personal Information: We may collect personal information such as your name, email address, phone number, and address when you register an account with us or request services through our app.\n"
+              "Service Information: When you request services through our app, we may collect information about the type of service requested, your device details, and any other relevant information necessary to fulfill your request.\n"
+            "Usage Information: We may collect information about how you interact with our app, including your browsing actions and patterns.\n"
             ),
             _buildPrivacyPolicyPoint(
               "Usage Data: We may collect information about how you interact with our app, including pages visited and features used.",
@@ -42,7 +44,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             _buildPrivacyPolicyPoint(
-              "Provide and maintain the app: We use your information to operate and maintain the House Hub app.",
+              "Provide and maintain the app: We use your information to operate and maintain the Servicify app.",
             ),
             _buildPrivacyPolicyPoint(
               "Improve user experience: We analyze usage data to enhance and personalize your experience with our app.",

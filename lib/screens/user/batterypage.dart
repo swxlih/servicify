@@ -41,6 +41,7 @@ class _BatteryPageState extends State<BatteryPage>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Battery replacement",

@@ -41,6 +41,7 @@ class _LapServiceManState extends State<LapServiceMan>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           widget.servicetype,
@@ -84,10 +85,7 @@ class _LapServiceManState extends State<LapServiceMan>
 
                                 onTap: (){
 
-
                                   showModalBottomSheet(context: context, builder: (context){
-
-
 
                                     return Container(
                                       padding: EdgeInsets.all(30),
@@ -149,9 +147,6 @@ class _LapServiceManState extends State<LapServiceMan>
                                       ),
                                     );
                                   });
-
-
-
 
                                 },
 

@@ -16,6 +16,7 @@ class _ViewNotificationsState extends State<ViewNotifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
 
         backgroundColor: primaryColor,
         title: Text(
