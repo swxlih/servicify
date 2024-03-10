@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/admin/admin_home_page.dart';
 import 'package:servicify/screens/constants/colors.dart';
+import 'package:servicify/screens/constants/service.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
@@ -23,6 +24,8 @@ class _AddFrlcrMobileServiceState extends State<AddFrlcrMobileService> {
   TextEditingController _titleController=TextEditingController();
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
+
+  String?selectedService;
 
   final key=GlobalKey<FormState>();
 
@@ -138,6 +141,8 @@ class _AddFrlcrMobileServiceState extends State<AddFrlcrMobileService> {
                   ),
                 ),
                 SizedBox(height: 10,),
+
+
 
 
                 Padding(

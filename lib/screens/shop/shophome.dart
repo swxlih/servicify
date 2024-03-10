@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
@@ -33,6 +34,17 @@ class _ShopHomeState extends State<ShopHome> {
           "Shop Home",
           style: appbarStyle,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage()));
+            }, icon: Icon(Icons.logout)),
+          )
+        ],
       ),
       body: SafeArea(
         child: Column(
