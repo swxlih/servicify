@@ -1,17 +1,24 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/admin/admin_home_page.dart';
 import 'package:servicify/screens/constants/colors.dart';
+import 'package:servicify/screens/constants/service.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
+import 'package:path/path.dart' as path;
+import 'package:uuid/uuid.dart';
 
 
 class AddMobileService extends StatefulWidget {
-  const AddMobileService({super.key});
+  var createdby;
+  var createdid;
+  AddMobileService({super.key,this.createdby,this.createdid});
 
   @override
   State<AddMobileService> createState() => _AddMobileServiceState();
@@ -23,15 +30,25 @@ class _AddMobileServiceState extends State<AddMobileService> {
   TextEditingController _titleController=TextEditingController();
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
+  TextEditingController _phnoController=TextEditingController();
 
-
+  String? selectedService;
 
   final key=GlobalKey<FormState>();
 
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
 
+  var uuid = Uuid();
+  var v1;
+  var url;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    v1 = uuid.v1();
+  }
 
 
   @override
@@ -120,6 +137,33 @@ class _AddMobileServiceState extends State<AddMobileService> {
                     }
                   },
 
+                  controller: _phnoController,
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+
+                    hintText: "Phone Number",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
+                  ),
+                ),
+                SizedBox(height: 10,),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Field is mandatory";
+                    }
+                  },
+
                   controller: _costController,
                   cursorColor: primaryColor,
                   decoration: InputDecoration(
@@ -140,41 +184,73 @@ class _AddMobileServiceState extends State<AddMobileService> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                
 
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
 
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    "Upload Photo",
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      showImage();
-                    },
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      child: _image!=null?ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          File(_image!.path),
-                          fit: BoxFit.cover,
-                        ),
-                      ):Container(
-                        color: Colors.grey,
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 20,
-                          color: Colors.grey[100],
-                        ),
-                      ),
+                    hintText: "Select Service Type",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
                     ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
                   ),
+                  value: selectedService,
+                  items: mobileservices
+                      .map((item) => DropdownMenuItem<String>(
+                      value: item, child: Text(item!)))
+                      .toList(),
+                  onChanged: (value) {
+
+                    selectedService=value;
+
+                  },
                 ),
+
+                SizedBox(height: 10,),
+
+
+
+
+                // Padding(
+                //   padding: const EdgeInsets.all(10),
+                //   child: Text(
+                //     "Upload Photo",
+                //   ),
+                // ),
+                // SizedBox(height: 20,),
+                // Center(
+                //   child: GestureDetector(
+                //     onTap: (){
+                //       showImage();
+                //     },
+                //     child: Container(
+                //       width: 250,
+                //       height: 250,
+                //       child: _image!=null?ClipRRect(
+                //         borderRadius: BorderRadius.circular(20),
+                //         child: Image.file(
+                //           File(_image!.path),
+                //           fit: BoxFit.cover,
+                //         ),
+                //       ):Container(
+                //         color: Colors.grey,
+                //         child: Icon(
+                //           Icons.camera_alt,
+                //           size: 20,
+                //           color: Colors.grey[100],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
 
 
@@ -188,13 +264,30 @@ class _AddMobileServiceState extends State<AddMobileService> {
                     onTap: (){
 
                       if(key.currentState!.validate()){
-                        showsnackbar("Saved Succesfully");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminHomePage()));
-                      }
+                        {
+                          FirebaseFirestore.instance.collection("mobileservices")
+                              .doc(v1).
 
+                          set({
+                            'title':_titleController.text,
+                            'description':_descriptinController.text,
+                            'cost':_costController.text,
+                            "status": 1,
+                            "id":v1,
+                            "createdDate": DateTime.now(),
+
+                            'createdby':widget.createdby,
+                            'createdid':widget.createdid,
+                            'phone':_phnoController.text,
+                            'servicetype':selectedService,
+                            'bookmarkstatus':0,
+                          })
+                              .then((value) { showsnackbar("Succesfully Added!");
+                          Navigator.pop(context);}
+                          );
+
+                        }
+                      }
                     },
                     child: Container(
                       width: 250,
