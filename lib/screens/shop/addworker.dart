@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:servicify/screens/constants/colors.dart';
@@ -215,12 +216,15 @@ class _AddWorkerState extends State<AddWorker> {
 
                 Center(
                   child: InkWell(
-                    onTap: (){
-
+                    onTap: () async{
+var id;
                       if(key.currentState!.validate()){
+
+                      await  FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _phoneController.text).then((value) {
+id=value.user!.uid;
                         FirebaseFirestore.instance
                             .collection("workers")
-                            .doc(v1)
+                            .doc(value.user!.uid)
                             .set({
                           "name": _nameController.text,
                           "email": _emailController.text,
@@ -228,16 +232,26 @@ class _AddWorkerState extends State<AddWorker> {
                           'experience':_expController.text,
                           'service':selectedservice,
                           "status": 1,
-                          "id": v1,
+                          "id": value.user!.uid
+                          ,
                           "createdDate": DateTime.now(),
                           'createdby':widget.createdby,
                           'createdid':widget.createdid
                         }).then((value) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.lightGreen,
-                              content: Text("Send Succesfully")));
-                          Navigator.pop(context);
+                        FirebaseFirestore.instance.collection('login').doc(id).set({
+
+                          "email": _emailController.text,
+                          'pass':_phoneController.text,
+                          "status": 1,
+                          "uid": id,
+                          'usertype':"employee",
+                          'createdat':DateTime.now()
+
                         });
+                        });
+                      });
+
+
                       }
 
                     },

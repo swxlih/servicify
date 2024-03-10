@@ -7,6 +7,7 @@ import 'package:servicify/screens/admin/addshop_page.dart';
 import 'package:servicify/screens/admin/addtips.dart';
 import 'package:servicify/screens/admin/viewAllnotifications.dart';
 import 'package:servicify/screens/admin/viewall_freelancers.dart';
+import 'package:servicify/screens/admin/viewall_payments.dart';
 import 'package:servicify/screens/admin/viewall_user.dart';
 import 'package:servicify/screens/admin/viewallcomplaints_admin.dart';
 import 'package:servicify/screens/admin/viewallshops_page.dart';
@@ -582,6 +583,55 @@ class _AdminHomePageState extends State<AdminHomePage> {
                             onTap: (){
 
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewAllTips()));
+                            },
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  "View All",
+                                  style: appbarStyle,
+                                ),
+                              ),
+                              height: 40,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  color: Colors.purple,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+
+
+              Text(
+                "Payment Management",
+                style: subtitleStyle,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Card(
+                elevation: 5.0,
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: primaryColor,
+                    ),
+                    child: Stack(
+                      children: [
+
+                        Center(
+                          child: InkWell(
+                            onTap: (){
+
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewAllPayments()));
                             },
                             child: Container(
                               child: Center(

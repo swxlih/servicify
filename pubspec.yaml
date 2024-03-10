@@ -49,6 +49,7 @@ dependencies:
   geolocator: ^10.1.0
   uuid:
   font_awesome_flutter:
+  razorpay_flutter:
 
 
 

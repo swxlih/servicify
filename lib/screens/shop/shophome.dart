@@ -83,127 +83,129 @@ class _ShopHomeState extends State<ShopHome> {
       key: _scaffoldKey,
       drawer: Drawer(
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: DrawerHeader(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        child: Text("${_name![0]}",style: TextStyle(color: Colors.white,fontSize: 20),),
-                        backgroundColor: primaryColor,
-                        radius: 30,
-                      ),
-                      SizedBox(height: 10,),
-                      Text("${_email}",style: TextStyle(color: primaryColor),)
-                    ],
-                  )
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: DrawerHeader(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          child: Text("${_name![0]}",style: TextStyle(color: Colors.white,fontSize: 20),),
+                          backgroundColor: primaryColor,
+                          radius: 30,
+                        ),
+                        SizedBox(height: 10,),
+                        Text("${_email}",style: TextStyle(color: primaryColor),)
+                      ],
+                    )
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap:(){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ViewNotifications()));
-                    },
-
-                      child: Text("Notifications",style: TextStyle(color: primaryColor,fontSize: 18),)),
-
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  GestureDetector(
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    GestureDetector(
                       onTap:(){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ViewTips()));
+                                builder: (context) => ViewNotifications()));
                       },
-                      child: Text("Tips",style: TextStyle(color: primaryColor,fontSize: 18),)),
-
-                ],
+          
+                        child: Text("Notifications",style: TextStyle(color: primaryColor,fontSize: 18),)),
+          
+                  ],
+                ),
               ),
-            ),
-
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ShopComplaintRegistration(
-                          createdid: _uid,
-                          createdby: _name,
-                        )));
-              },
-              child: ListTile(
-                title:
-                Text("Complaint Registration", style: TextStyle(color: primaryColor)),
-
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewTips()));
+                        },
+                        child: Text("Tips",style: TextStyle(color: primaryColor,fontSize: 18),)),
+          
+                  ],
+                ),
               ),
-            ),
-
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ShopComplaintReply(
-                          createdid: _uid,
-                          createdby: _name,
-                        )));
-              },
-              child: ListTile(
-                title:
-                Text("Complaint Reply", style: TextStyle(color: primaryColor)),
-
+          
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShopComplaintRegistration(
+                            createdid: _uid,
+                            createdby: _name,
+                          )));
+                },
+                child: ListTile(
+                  title:
+                  Text("Complaint Registration", style: TextStyle(color: primaryColor)),
+          
+                ),
               ),
-            ),
-
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ShopFeedbackRegistration(
-                          createdid: _uid,
-                          createdby: _name,
-                        )));
-              },
-              child: ListTile(
-                title:
-                Text("Add Feedback", style: TextStyle(color: primaryColor)),
-
+          
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShopComplaintReply(
+                            createdid: _uid,
+                            createdby: _name,
+                          )));
+                },
+                child: ListTile(
+                  title:
+                  Text("Complaint Reply", style: TextStyle(color: primaryColor)),
+          
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  Text("Logout",style: TextStyle(color: primaryColor,fontSize: 18),),
-                  IconButton(onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginPage()));
-                  }, icon: Icon(Icons.logout,color: primaryColor,))
-                ],
+          
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShopFeedbackRegistration(
+                            createdid: _uid,
+                            createdby: _name,
+                          )));
+                },
+                child: ListTile(
+                  title:
+                  Text("Add Feedback", style: TextStyle(color: primaryColor)),
+          
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Text("Logout",style: TextStyle(color: primaryColor,fontSize: 18),),
+                    IconButton(onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginPage()));
+                    }, icon: Icon(Icons.logout,color: primaryColor,))
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
