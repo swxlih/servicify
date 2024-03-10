@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
 class ViewLapServices extends StatefulWidget {
-  const ViewLapServices({super.key});
+  var createdid;
+   ViewLapServices({super.key,this.createdid});
 
   @override
   State<ViewLapServices> createState() => _ViewLapServicesState();
@@ -26,30 +28,53 @@ class _ViewLapServicesState extends State<ViewLapServices> {
           padding: EdgeInsets.all(20),
           height: double.infinity,
           width: double.infinity,
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context,index){
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("lapservices").
+              where("status",isEqualTo: 1).where('createdid',isEqualTo: widget.createdid).
+              snapshots(),
+              builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if(!snapshot.hasData){
+                  // still waiting for data to come
+                  return Center(child: CircularProgressIndicator());
+
+                }
+                else if(snapshot.hasData &&  snapshot.data!.docs.length==0) {
+                  // got data from snapshot but it is empty
+
+                  return Center(child: Text("No Data found"));
+                }
+                else
+                  return ListView.builder(
+                    itemCount:snapshot.data!.docs.length ,
+                    itemBuilder: (context,index){
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+
+                          child: ListTile(
 
 
-                return Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 20,
-                      child: Text("${index+1}"),
-                    ),
+                            leading: CircleAvatar(
+                              child: Text("${index+1}"),
+                            ),
+                            title: Text("Title:${snapshot.data!.docs[index]['title']}"),
+                            subtitle: Text("Description:${snapshot.data!.docs[index]['description']}"),
+                            trailing: IconButton(onPressed: (){
+                              FirebaseFirestore.instance.collection('lapservices').doc( "${snapshot.data!.docs[index]['id']}").update({
+                                'status':0
+                              });
+                            },
+                              icon: Icon(Icons.delete),),
 
+                          ),
+                        ),
+                      );
 
-                    title: Text("Title"),
-                    subtitle: Text("Description"),
-                    trailing: IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.delete),
-                    ),
+                    },
 
-                  ),
-                );
-
-              })
+                  );
+              }
+          )
       ),
 
     );

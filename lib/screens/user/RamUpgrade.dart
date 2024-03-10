@@ -31,7 +31,7 @@ class _RamUpgradeState extends State<RamUpgrade>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primaryColor,
         title: Text(
           "Ram Upgrade ",

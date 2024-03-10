@@ -14,7 +14,11 @@ class UserService {
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _loginCollection =
-  FirebaseFirestore.instance.collection('users');
+  FirebaseFirestore.instance.collection('login');
+  final CollectionReference _freelanceCollection =
+  FirebaseFirestore.instance.collection('freelancer');
+  final CollectionReference _shopCollection =
+  FirebaseFirestore.instance.collection('shop');
 
   //Register user
 
@@ -79,6 +83,9 @@ class UserService {
 
   }
 
+
+
+
   //update user
   Future<void> updateUser(UserModel user) async {
     SharedPreferences _pref=await SharedPreferences.getInstance();
@@ -88,9 +95,6 @@ class UserService {
       'phone': user.phone,
       'location': user.location,
       'imgurl': user.imgurl,
-
-
-
       'status':user.status
     }).then((value) async {
 
@@ -112,34 +116,90 @@ class UserService {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: user.email.toString(), password: user.password.toString());
 
-    var snap = await _userCollection.doc(userCredential.user!.uid).get();
+    var snap = await _loginCollection.doc(userCredential.user!.uid).get();
 
     String? token = await userCredential.user!.getIdToken();
 
     await _pref.setString('token', token!);
     print("Token is: $token");
 
-    String? _name = snap['name'];
-    String? _email = snap['email'];
-    String? _phone = snap['phone'];
-    String? _location = snap['location'] ?? "Not Set";
-    String? _imgurl = snap['imgurl'] ?? "assets/images/profile.png";
-    String? _type = snap['usertype'];
-    String? _uid = snap['uid'];
+    if (snap['usertype'] == "user") {
+      var user = await _userCollection.doc(userCredential.user!.uid).get();
+      String? _name = user['name'];
+      String? _email = snap['email'];
+      String? _phone = user['phone'];
+      String? _location = user['location'] ?? "Not Set";
+      String? _imgurl = user['imgurl'] ?? "assets/images/profile.png";
+      String? _type = snap['usertype'];
+      String? _uid = snap['uid'];
 
 
 
-    await _pref.setString('token', token);
-    await _pref.setString('uid', _uid!);
-    await _pref.setString('name', _name!);
-    await _pref.setString('email', _email!);
-    await _pref.setString('phone', _phone!);
-    await _pref.setString('type', _type!);
-    await _pref.setString('imgurl', _imgurl!);
-    await _pref.setString('location', _location!);
+      await _pref.setString('token', token);
+      await _pref.setString('uid', _uid!);
+      await _pref.setString('name', _name!);
+      await _pref.setString('email', _email!);
+      await _pref.setString('phone', _phone!);
+      await _pref.setString('usertype', _type!);
+      await _pref.setString('imgurl', _imgurl!);
+      await _pref.setString('location', _location!);
 
 
-await _pref.setInt('exp', 0);
+      return user;
+    }
+
+    else if (snap['usertype'] == "freelancer") {
+      var freelacer = await _freelanceCollection.doc(userCredential.user!.uid).get();
+      String? _name = freelacer['name'];
+      String? _email = snap['email'];
+      String? _phone = freelacer['phone'];
+      String? _type = snap['usertype'];
+      String? _uid = snap['uid'];
+
+      String? _location = freelacer['location'];
+      String? _password = freelacer['password'];
+      String? _category = freelacer['category'];
+      String? _services = freelacer['services'];
+      await _pref.setString('password', _password!);
+      await _pref.setString('location', _location!);
+      await _pref.setString('token', token);
+      await _pref.setString('uid', _uid!);
+      await _pref.setString('name', _name!);
+      await _pref.setString('email', _email!);
+      await _pref.setString('phone', _phone!);
+      await _pref.setString('usertype', _type!);
+      await _pref.setString('category', _category!);
+      await _pref.setString('services', _services!);
+
+      return freelacer;
+    }
+
+    else if (snap['usertype'] == "shop") {
+      var shop = await _shopCollection.doc(userCredential.user!.uid).get();
+      String? _name = shop['name'];
+      String? _email = snap['email'];
+      String? _phone = shop['phone'];
+      String? _type = snap['usertype'];
+      String? _uid = snap['uid'];
+      String? _location = shop['location'];
+      String? _password = shop['password'];
+      String? _category = shop['category'];
+      String? _services = shop['services'];
+      await _pref.setString('password', _password!);
+      await _pref.setString('location', _location!);
+      await _pref.setString('token', token);
+      await _pref.setString('uid', _uid!);
+      await _pref.setString('name', _name!);
+      await _pref.setString('email', _email!);
+      await _pref.setString('phone', _phone!);
+      await _pref.setString('usertype', _type!);
+      await _pref.setString('category', _category!);
+      await _pref.setString('services', _services!);
+
+      return shop;
+    }
+
+    await _pref.setInt('exp', 0);
     return snap;
   }
 
@@ -167,7 +227,7 @@ await _pref.setInt('exp', 0);
   Future<List<UserModel>> GetAllUsers(String?city) async {
     print(city);
     QuerySnapshot snap =
-    await _userCollection.where('location',isEqualTo: city).where('usertype',isEqualTo:"user").get();
+    await _userCollection.where('city',isEqualTo: city).where('usertype',isEqualTo:"user").get();
 
     List<UserModel> data = [];
 

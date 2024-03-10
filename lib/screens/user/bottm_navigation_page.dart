@@ -2,13 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicify/constants/colors.dart';
+import 'package:servicify/screens/common/login_page.dart';
+import 'package:servicify/screens/shop/viewnotification.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
+import 'package:servicify/screens/user/acceptedbookings.dart';
+import 'package:servicify/screens/user/addcomplaint.dart';
+import 'package:servicify/screens/user/addfeedback.dart';
+import 'package:servicify/screens/user/bookmark.dart';
 import 'package:servicify/screens/user/bottomnavigation_widget.dart';
+import 'package:servicify/screens/user/complaintreply.dart';
+import 'package:servicify/screens/user/profilepage.dart';
 import 'package:servicify/screens/user/services/bottombar_service.dart';
+import 'package:servicify/screens/user/settings/settings_page.dart';
+import 'package:servicify/screens/user/userbookings.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
@@ -25,10 +33,6 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   String? token;
   String? _location;
   var imggurl;
-
-
-
-
 
   Map<String, dynamic> data = {};
   String? _uid;
@@ -64,10 +68,8 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       'uid',
     );
 
-
     print(data);
     setState(() {
-
       data = {
         "name": _name,
         "email": _email,
@@ -84,22 +86,20 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     getData();
     initializePage();
     super.initState();
-
-
   }
 
-List _widgetOption=[];
+  List _widgetOption = [];
 
   Future<void> initializePage() async {
     await getData();
     _widgetOption = [
       UserHomePage(),
-     Text("hello"),
-     Text("hello"),
-     Text("hello"),
-
+      BookMarkPage(),
+      Settingpage(),
+      ProfilePage(),
     ];
   }
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,6 @@ List _widgetOption=[];
     String type;
     return Consumer<BottomBarServiceProvider>(
         builder: (context, bottomprovider, child) {
-
       return Scaffold(
           bottomNavigationBar: BottomNavigation(),
           drawer: Drawer(
@@ -130,13 +129,110 @@ List _widgetOption=[];
                       ],
                     ),
                   ),
+                  // InkWell(
+                  //     onTap: (){
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) => ViewNotifications()));
+                  //     },
+                  //   child: ListTile(
+                  //     title:
+                  //     Text("Notifications", style: TextStyle(color: Colors.white)),
+                  //
+                  //   ),
+                  // ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserBookings(
+                                createdid: _uid,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Bookings", style: TextStyle(color: Colors.white)),
 
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AcceptedBookings(
+                                createdid: _uid,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Accepted Bookings", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserComplaintRegistration(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Complaint Registration", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComplaintReply(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Complaint Reply", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserFeedbackRegistration(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Add Feedback", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
                   ListTile(
                     title:
                         Text("Logout", style: TextStyle(color: Colors.white)),
                     trailing: IconButton(
                       onPressed: () {
-                        _logoutAndNavigateToLogin(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage(
+
+                                )));
                       },
                       icon: Icon(Icons.logout, color: Colors.white),
                     ),
@@ -145,37 +241,21 @@ List _widgetOption=[];
               )),
           backgroundColor: AppColors.scaffoldColor,
           appBar: AppBar(
-            leading:  Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Center(
-                  child: IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    icon: Icon(
-                      Icons.grid_view_outlined,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            backgroundColor: AppColors.scaffoldColor,
+       iconTheme: IconThemeData(color: Colors.white),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: imggurl=="null" ?CircleAvatar(
-                  radius: 33,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                ):CircleAvatar(
-                  radius: 33,
-                  backgroundImage:NetworkImage('${imggurl}'),
-                ),
+                child: imggurl == "null"
+                    ? CircleAvatar(
+                        radius: 33,
+                        backgroundImage:
+                            AssetImage('assets/img/profile.png'),
+                      )
+                    : CircleAvatar(
+                        radius: 33,
+                        backgroundImage: NetworkImage('${imggurl}'),
+                      ),
               ),
             ],
           ),

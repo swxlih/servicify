@@ -12,7 +12,7 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Image.asset('assets/images/$imgpath',height: height,width: width,),
+      child: Image.asset('assets/img/$imgpath',height: height,width: width,),
     );
   }
 }

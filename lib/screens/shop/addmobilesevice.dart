@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/admin/admin_home_page.dart';
 import 'package:servicify/screens/constants/colors.dart';
-import 'package:servicify/screens/constants/service.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 
 
@@ -24,8 +23,6 @@ class _AddMobileServiceState extends State<AddMobileService> {
   TextEditingController _titleController=TextEditingController();
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
-
-  String? selectedvalue;
 
 
 
@@ -143,36 +140,7 @@ class _AddMobileServiceState extends State<AddMobileService> {
                   ),
                 ),
                 SizedBox(height: 10,),
-
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-
-                    hintText: "Select Service Type",
-                    hintStyle: TextStyle(
-                      color: primaryColor,
-                    ),
-
-                    enabledBorder:UnderlineInputBorder(),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-
-                        )
-
-                    ),
-
-                  ),
-                  value: selectedvalue,
-                  items: mobileservices
-                      .map((item) => DropdownMenuItem<String>(
-                      value: item, child: Text(item!)))
-                      .toList(),
-                  onChanged: (value) {
-
-                    selectedvalue=value;
-
-                  },
-                ),
-
+                
 
 
                 Padding(

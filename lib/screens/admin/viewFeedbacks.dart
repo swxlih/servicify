@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
@@ -26,51 +27,48 @@ class _ViewFeedbacksState extends State<ViewFeedbacks> {
           padding: EdgeInsets.all(20),
           height: double.infinity,
           width: double.infinity,
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context,index){
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("feedback").
+              where("status",isEqualTo: 1).
+              snapshots(),
+              builder: (context,  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if(!snapshot.hasData){
+                  // still waiting for data to come
+                  return Center(child: CircularProgressIndicator());
+
+                }
+                else if(snapshot.hasData &&  snapshot.data!.docs.length==0) {
+                  // got data from snapshot but it is empty
+
+                  return Center(child: Text("No Data found"));
+                }
+                else
+                  return ListView.builder(
+                    itemCount:snapshot.data!.docs.length ,
+                    itemBuilder: (context,index){
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+
+                          child: ListTile(
+
+                           
+                            leading: CircleAvatar(
+                              child: Text("${index+1}"),
+                            ),
+                            title: Text("Title:${snapshot.data!.docs[index]['title']}"),
+                            subtitle: Text("Description:${snapshot.data!.docs[index]['description']}"),
 
 
-                return Card(
-                  child: ListTile(
-
-                    onTap: (){
-
-
-                      showModalBottomSheet(context: context, builder: (context){
-
-
-
-                        return Container(
-                          padding: EdgeInsets.all(20),
-                          height: 200,
-                          width: MediaQuery.of(context).size.width,
-
-
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text("Shop Name"),
-                              Text("Email"),
-                              Text("Phone"),
-                              Text("ServiceType"),
-
-                            ],
                           ),
-                        );
-                      });
-
-
-
+                        ),
+                      );
 
                     },
-                    title: Text("Message"),
-                  ),
-                );
 
-              })
+                  );
+              }
+          )
       ),
 
     );

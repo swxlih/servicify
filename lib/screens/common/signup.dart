@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/constants/colors.dart';
+import 'package:servicify/data/city_list.dart';
 import 'package:servicify/screens/auth/models/user_model.dart';
 import 'package:servicify/screens/auth/services/userservice.dart';
 import 'package:servicify/screens/constants/colors.dart';
@@ -21,7 +22,10 @@ class _SignupPageState extends State<SignupPage> {
   var _passwordcontroller = TextEditingController();
   var _namecontroller = TextEditingController();
   var _phonecontroller = TextEditingController();
+  var _locationcontroller = TextEditingController();
   bool visible = true;
+
+  String?selectedCity;
 
   final _regKey = GlobalKey<FormState>();
 
@@ -191,6 +195,38 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(
                   height: 20,
                 ),
+
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+
+                    hintText: "Select City",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+
+                    enabledBorder:UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+
+                        )
+
+                    ),
+
+                  ),
+                  value: selectedCity,
+                  items: malappuramCities
+                      .map((city) => DropdownMenuItem<String>(
+                      value: city, child: Text(city)))
+                      .toList(),
+                  onChanged: (value) {
+
+                    selectedCity=value;
+
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: AppButton(
                     onTap: () {
@@ -244,7 +280,9 @@ class _SignupPageState extends State<SignupPage> {
       email: _usernamecontroller.text,
       password: _passwordcontroller.text,
       phone: _phonecontroller.text,
-      name: _namecontroller.text
+      name: _namecontroller.text,
+      location: selectedCity
+
     );
 
     try {
