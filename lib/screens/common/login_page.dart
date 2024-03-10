@@ -8,6 +8,7 @@ import 'package:servicify/screens/auth/models/user_model.dart';
 import 'package:servicify/screens/auth/services/userservice.dart';
 import 'package:servicify/screens/common/errorpage.dart';
 import 'package:servicify/screens/common/signup.dart';
+import 'package:servicify/screens/common/technicianregister.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/freelancer/freelancerhome.dart';
@@ -321,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
 
                         TextButton(onPressed: (){
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>TechnicianHomePage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>TechnicianRegister()));
 
                         }, child: Text("Sign in as a Technician!",style: normalStylebold,))
                       ],

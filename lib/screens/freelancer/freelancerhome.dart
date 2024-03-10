@@ -7,6 +7,9 @@ import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/freelancer/acceptfreelancerequest.dart';
 import 'package:servicify/screens/freelancer/addlapservice.dart';
 import 'package:servicify/screens/freelancer/freelancebooking.dart';
+import 'package:servicify/screens/freelancer/freelancecomplaint.dart';
+import 'package:servicify/screens/freelancer/freelancefeedback.dart';
+import 'package:servicify/screens/freelancer/freelancercomplaintreply.dart';
 import 'package:servicify/screens/freelancer/viewlapservice.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
@@ -147,6 +150,57 @@ class _FreelancerHomeState extends State<FreelancerHome> {
                 ],
               ),
             ),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FreelancerComplaintRegistration(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Complaint Registration", style: TextStyle(color: primaryColor)),
+
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FreelancerComplaintReply(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Complaint Reply", style: TextStyle(color: primaryColor)),
+
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FreelancerFeedbackRegistration(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Add Feedback", style: TextStyle(color: primaryColor)),
+
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.all(15),
               child: Row(

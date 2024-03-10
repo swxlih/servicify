@@ -6,8 +6,11 @@ import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/shop/viewnotification.dart';
 import 'package:servicify/screens/user/UserHomePage.dart';
 import 'package:servicify/screens/user/acceptedbookings.dart';
+import 'package:servicify/screens/user/addcomplaint.dart';
+import 'package:servicify/screens/user/addfeedback.dart';
 import 'package:servicify/screens/user/bookmark.dart';
 import 'package:servicify/screens/user/bottomnavigation_widget.dart';
+import 'package:servicify/screens/user/complaintreply.dart';
 import 'package:servicify/screens/user/profilepage.dart';
 import 'package:servicify/screens/user/services/bottombar_service.dart';
 import 'package:servicify/screens/user/settings/settings_page.dart';
@@ -166,6 +169,56 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                     child: ListTile(
                       title:
                       Text("Accepted Bookings", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserComplaintRegistration(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Complaint Registration", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComplaintReply(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Complaint Reply", style: TextStyle(color: Colors.white)),
+
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserFeedbackRegistration(
+                                createdid: _uid,
+                                createdby: _name,
+                              )));
+                    },
+                    child: ListTile(
+                      title:
+                      Text("Add Feedback", style: TextStyle(color: Colors.white)),
 
                     ),
                   ),

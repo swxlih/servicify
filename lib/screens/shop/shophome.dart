@@ -4,10 +4,13 @@ import 'package:servicify/screens/admin/viewtips.dart';
 import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/shop/acceptedshoprequest.dart';
+import 'package:servicify/screens/shop/addcomplaintshop.dart';
+import 'package:servicify/screens/shop/addfeedbackshop.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
 import 'package:servicify/screens/shop/addworker.dart';
 import 'package:servicify/screens/shop/shopbooking.dart';
+import 'package:servicify/screens/shop/shopcomplaintreply.dart';
 import 'package:servicify/screens/shop/viewlaptopservice.dart';
 import 'package:servicify/screens/shop/viewmobileservice.dart';
 import 'package:servicify/screens/shop/viewnotification.dart';
@@ -133,6 +136,57 @@ class _ShopHomeState extends State<ShopHome> {
                       child: Text("Tips",style: TextStyle(color: primaryColor,fontSize: 18),)),
 
                 ],
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShopComplaintRegistration(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Complaint Registration", style: TextStyle(color: primaryColor)),
+
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShopComplaintReply(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Complaint Reply", style: TextStyle(color: primaryColor)),
+
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShopFeedbackRegistration(
+                          createdid: _uid,
+                          createdby: _name,
+                        )));
+              },
+              child: ListTile(
+                title:
+                Text("Add Feedback", style: TextStyle(color: primaryColor)),
+
               ),
             ),
             Padding(

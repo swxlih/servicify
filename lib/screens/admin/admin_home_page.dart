@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:servicify/screens/admin/add_freelancer_page.dart';
 import 'package:servicify/screens/admin/add_user_page.dart';
 import 'package:servicify/screens/admin/addnotification.dart';
+import 'package:servicify/screens/admin/addreply.dart';
 import 'package:servicify/screens/admin/addshop_page.dart';
 import 'package:servicify/screens/admin/addtips.dart';
 import 'package:servicify/screens/admin/viewAllnotifications.dart';
@@ -374,7 +375,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ViewAllComplaints()));
+                                builder: (context) => AddReply()));
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),

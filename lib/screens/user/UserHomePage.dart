@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:servicify/screens/common/login_page.dart';
 import 'package:servicify/screens/user/RamUpgrade.dart';
@@ -142,8 +143,10 @@ class _UserHomePageState extends State<UserHomePage> {
                                         Text(snapshot.data!.docs[index]['title'],
                                           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
 
-                                        Text(snapshot.data!.docs[index]['description'],
-                                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)
+                                        Expanded(
+                                          child: Text(snapshot.data!.docs[index]['description'],
+                                            style: TextStyle(fontSize: 15),),
+                                        )
                                       ],
                                     ),
                                   ),
