@@ -177,8 +177,8 @@ var id=Uuid().v1();
     return {
       'key': 'rzp_test_7ERJiy5eonusNC',
       'amount': (total * 100).toInt(), // Convert total to integer (paise)
-      'name': 'Mentor U',
-      'description': 'Wallet Recahrge',
+      'name': 'Servicify',
+      'description': 'Service Charge',
       'prefill': {
         'contact': '9895663498',
         'email': 'support@ralfiz.com'
