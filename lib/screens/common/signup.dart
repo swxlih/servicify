@@ -227,6 +227,36 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(
                   height: 20,
                 ),
+
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Field is mandatory";
+                    }
+                  },
+                  controller: _locationcontroller,
+                  cursorColor: Colors.redAccent,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.location_on,
+                      color: primaryColor,
+                    ),
+                    hintText: "Address",
+                    hintStyle: TextStyle(
+                      color: primaryColor,
+                    ),
+                    enabledBorder: UnderlineInputBorder(),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
                 Center(
                   child: AppButton(
                     onTap: () {
@@ -282,6 +312,7 @@ class _SignupPageState extends State<SignupPage> {
       phone: _phonecontroller.text,
       name: _namecontroller.text,
       location: selectedCity
+
 
     );
 

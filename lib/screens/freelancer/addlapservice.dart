@@ -76,18 +76,10 @@ class _AddFreeLapServiceState extends State<AddFreeLapService> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Field is mandatory";
-                    }
-                  },
-                  cursorColor: primaryColor,
-                  controller: _titleController,
-
+                DropdownButtonFormField<String>(
                   decoration: InputDecoration(
 
-                    hintText: "Title",
+                    hintText: "Select Service Type",
                     hintStyle: TextStyle(
                       color: primaryColor,
                     ),
@@ -101,7 +93,18 @@ class _AddFreeLapServiceState extends State<AddFreeLapService> {
                     ),
 
                   ),
+                  value: selectedService,
+                  items: lapservices
+                      .map((item) => DropdownMenuItem<String>(
+                      value: item, child: Text(item!)))
+                      .toList(),
+                  onChanged: (value) {
+
+                    selectedService=value;
+
+                  },
                 ),
+
                 SizedBox(height: 10,),
                 TextFormField(
                   validator: (value) {
@@ -184,34 +187,7 @@ class _AddFreeLapServiceState extends State<AddFreeLapService> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
 
-                    hintText: "Select Service Type",
-                    hintStyle: TextStyle(
-                      color: primaryColor,
-                    ),
-
-                    enabledBorder:UnderlineInputBorder(),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-
-                        )
-
-                    ),
-
-                  ),
-                  value: selectedService,
-                  items: lapservices
-                      .map((item) => DropdownMenuItem<String>(
-                      value: item, child: Text(item!)))
-                      .toList(),
-                  onChanged: (value) {
-
-                    selectedService=value;
-
-                  },
-                ),
 
                 SizedBox(height: 10,),
 
@@ -279,7 +255,7 @@ class _AddFreeLapServiceState extends State<AddFreeLapService> {
                                 .doc(v1).
 
                             set({
-                              'title':_titleController.text,
+
                               'description':_descriptinController.text,
                               'cost':_costController.text,
                               'servicetype':selectedService,

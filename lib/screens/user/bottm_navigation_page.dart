@@ -164,6 +164,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                           MaterialPageRoute(
                               builder: (context) => AcceptedBookings(
                                 createdid: _uid,
+                                createdby: _name,
                               )));
                     },
                     child: ListTile(
@@ -239,9 +240,9 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                   ),
                 ],
               )),
-          backgroundColor: AppColors.scaffoldColor,
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: AppColors.scaffoldColor,
+            backgroundColor: Colors.blue,
        iconTheme: IconThemeData(color: Colors.white),
             actions: [
               Padding(

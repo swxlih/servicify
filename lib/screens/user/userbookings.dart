@@ -68,8 +68,7 @@ class _UserBookingsState extends State<UserBookings> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
 
                                       children: [
-                                        Text(snapshot.data!.docs[index]['title']),
-                                        SizedBox(height:20,),
+
                                         Text(snapshot.data!.docs[index]['servicetype']),
                                         SizedBox(height:20,),
                                         Text(snapshot.data!.docs[index]['serviceby']),
@@ -109,7 +108,7 @@ class _UserBookingsState extends State<UserBookings> {
                                 child: Text("${index+1}"),
                               ),
                               title: Text("Service:${snapshot.data!.docs[index]['servicetype']}"),
-                              subtitle: Text("Title:${snapshot.data!.docs[index]['title']}"),
+
                             ),
                           )
                       );

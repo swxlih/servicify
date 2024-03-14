@@ -3,16 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/user/checkout_page.dart';
+import 'package:servicify/screens/user/rating_review.dart';
+import 'package:uuid/uuid.dart';
 
 class AcceptedBookings extends StatefulWidget {
   var createdid;
-  AcceptedBookings({super.key, this.createdid});
+  var createdby;
+  AcceptedBookings({super.key, this.createdid,this.createdby});
 
   @override
   State<AcceptedBookings> createState() => _AcceptedBookingsState();
 }
 
 class _AcceptedBookingsState extends State<AcceptedBookings> {
+
+
+  var v1;
+  var uuid = Uuid();
+
+
+
+
+  @override
+  void initState() {
+
+    v1 = uuid.v1();
+    super.initState();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +77,8 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                               onTap: () {
                                 TextEditingController _amount =
                                     TextEditingController();
+                                TextEditingController _feedback =
+                                TextEditingController();
                                 final _key = GlobalKey<FormState>();
 
                                 snapshot.data!.docs[index]
@@ -64,7 +87,7 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                                     builder: (context) {
                                       return Container(
                                         padding: EdgeInsets.all(30),
-                                        height: 350,
+                                        height: 400,
                                         width:
                                             MediaQuery.of(context).size.width,
                                         child: Form(
@@ -75,11 +98,7 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(snapshot.data!.docs[index]
-                                                  ['title']),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
+
                                               Text(snapshot.data!.docs[index]
                                                   ['servicetype']),
                                               SizedBox(
@@ -93,6 +112,9 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                                               SizedBox(
                                                 height: 20,
                                               ),
+
+
+
                                               TextFormField(
                                                 controller: _amount,
                                                 validator: (value) {
@@ -109,19 +131,7 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                                                     MainAxisAlignment.end,
                                                 children: [
 
-                                                  // ElevatedButton(
-                                                  //
-                                                  //     onPressed: (){
-                                                  //       Navigator.pop(context);
-                                                  //
-                                                  //     }, child: Text("Cancel")),
-                                                  // ElevatedButton(
-                                                  //
-                                                  //     onPressed: (){
-                                                  //   FirebaseFirestore.instance.collection('notification').doc( "${snapshot.data!.docs[index]['uid']}").update({
-                                                  //     'status':0
-                                                  //   });
-                                                  // }, child: Text("Delete")),
+
 
                                                   ElevatedButton(
                                                       onPressed: () {
@@ -166,8 +176,24 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
                               ),
                               title: Text(
                                   "Service:${snapshot.data!.docs[index]['servicetype']}"),
-                              subtitle: Text(
-                                  "Title:${snapshot.data!.docs[index]['title']}"),
+                              trailing: IconButton(onPressed: (){
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RatingAndReviewPage(
+
+                                          servicerid:snapshot.data!.docs[index]['serviceid'] ,
+                                          userid: snapshot.data!.docs[index]['createdid'],
+                                          username: snapshot.data!.docs[index]['createdby'],
+                                          serviceby:snapshot.data!.docs[index]['serviceby'] ,
+
+                                          id:snapshot.data!.docs[index]['id'] ,
+                                        )));
+
+                              },
+                              icon: Icon(Icons.send,color: primaryColor,),),
+
                             ),
                           ));
                     },
@@ -175,4 +201,11 @@ class _AcceptedBookingsState extends State<AcceptedBookings> {
               })),
     );
   }
+
+  void showsnackbar(String value) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(value))
+    );
+  }
+
 }

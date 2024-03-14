@@ -9,6 +9,7 @@ class UserModel {
   String? password;
   String? imgurl;
   String? location;
+  String? address;
 
 
 
@@ -17,7 +18,7 @@ class UserModel {
 
   UserModel(
       {this.createdAt,
-
+this.address,
 
 
 
@@ -42,6 +43,7 @@ class UserModel {
       imgurl: json['imgurl'],
 
       createdAt: json['createdAt'],
+      address: json['address']
       // skills: List<String>.from(json['skills'])??[],
     );
   }
@@ -53,7 +55,7 @@ class UserModel {
       'name': name,
       'email': email,
       'location': location,
-
+'address':address,
 
       'imgurl': imgurl,
       'createdAt': createdAt!.toIso8601String(),

@@ -50,6 +50,7 @@ dependencies:
   uuid:
   font_awesome_flutter:
   razorpay_flutter:
+  flutter_rating_bar: ^4.0.1
 
 
 

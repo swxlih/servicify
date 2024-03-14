@@ -16,6 +16,7 @@ import 'package:servicify/screens/user/speakerpage.dart';
 import 'package:servicify/screens/user/tips.dart';
 import 'package:servicify/screens/user/waterpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 import '../constants/colors.dart';
 import '../constants/textstyles.dart';
@@ -69,12 +70,21 @@ class _UserHomePageState extends State<UserHomePage> {
     });
   }
 
+  var v1;
+  var uuid = Uuid();
+
+
+
 
   @override
   void initState() {
+
     getData();
+    v1 = uuid.v1();
     super.initState();
   }
+
+
 
 
 
@@ -100,7 +110,7 @@ class _UserHomePageState extends State<UserHomePage> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 300,bottom: 10),
-                  child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 14),),
+                  child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 14),),
                 )),
             Container(
                 height: 200,
@@ -126,7 +136,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           itemBuilder: (context,index){
                             return   Container(
                               padding: EdgeInsets.all(20),
-                              height: 180,
+                              height: 150,
                               width: MediaQuery.of(context).size.width*0.88,
                               decoration: BoxDecoration(
                                   color:Colors.teal,
@@ -138,10 +148,13 @@ class _UserHomePageState extends State<UserHomePage> {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text("Tip of the day",style: TextStyle(color: Colors.white,fontSize: 24),),
 
-                                        Text(snapshot.data!.docs[index]['title'],
-                                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Text(snapshot.data!.docs[index]['title'],
+                                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                                        ),
 
                                         Expanded(
                                           child: Text(snapshot.data!.docs[index]['description'],
@@ -150,11 +163,11 @@ class _UserHomePageState extends State<UserHomePage> {
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      child: Image.asset('assets/img/logo.png'),
-                                    ),
-                                  )
+                                  // Expanded(
+                                  //   child: Container(
+                                  //     child: Image.asset('assets/img/logo.png'),
+                                  //   ),
+                                  // )
 
                                 ],
                               ),
@@ -174,7 +187,7 @@ class _UserHomePageState extends State<UserHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
 
-                Text("Laptop Services".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),)
+                Text("Laptop Services".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)
                 ,InkWell(
                     onTap: (){
 
@@ -188,7 +201,7 @@ class _UserHomePageState extends State<UserHomePage> {
                               )));
 
                     },
-                    child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 14),))
+                    child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 14),))
               ],
             ),
             SizedBox(height: 20,),
@@ -221,19 +234,74 @@ class _UserHomePageState extends State<UserHomePage> {
                               child: InkWell(
                                 onTap: (){
 
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LapServiceMan(
-                                            servicetype: snapshot.data!.docs[index]['servicetype'],
-                                            createdid: _uid,
-                                            createdby: _name,
+                                  showModalBottomSheet(context: context, builder: (context){
 
-                                          )));
+                                    return Container(
+                                      padding: EdgeInsets.all(30),
+                                      height:350,
+                                      width: MediaQuery.of(context).size.width,
+
+
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                                        children: [
+                                          Text("Service:${snapshot.data!.docs[index]['servicetype']}"),
+                                          SizedBox(height:20,),
+                                          Text("Servicer:${snapshot.data!.docs[index]['createdby']}"),
+                                          SizedBox(height:20,),
+
+                                          Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
+                                          SizedBox(height:20,),
+
+                                          Text("Cost:${snapshot.data!.docs[index]['cost']}"),
+                                          SizedBox(height:20,),
+
+                                          SizedBox(height:20,),
+
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+
+                                              ElevatedButton(
+
+                                                  onPressed: (){
+                                                    Navigator.pop(context);
+
+                                                  }, child: Text("Cancel")),
+                                              ElevatedButton(onPressed: (){
+                                                FirebaseFirestore.instance.collection("appointment")
+                                                    .doc(v1).
+
+                                                set({
+
+                                                  'createdby':_name,
+                                                  'createdid':_uid,
+                                                  'bookingstatus':0,
+                                                  'servicetype':snapshot.data!.docs[index]['servicetype'],
+                                                  'serviceby':snapshot.data!.docs[index]['createdby'],
+                                                  'serviceid':snapshot.data!.docs[index]['createdid'],
+
+                                                  "status": 1,
+                                                  "id":v1,
+                                                  "createdDate": DateTime.now(),
+
+                                                })
+                                                    .then((value) { showsnackbar(" Appointment Added Succesfully !");
+                                                Navigator.pop(context);}
+                                                );
+                                              }, child: Text("Book now")),
+                                            ],
+                                          )
+
+                                        ],
+                                      ),
+                                    );
+                                  });
 
                                 },
                                 child: Stack(
-
 
                                   children: [
                                     Card(
@@ -243,7 +311,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         width: MediaQuery.of(context).size.width*0.85,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(5),
-                                            color: Colors.white
+                                            color: Color(0xffFBE9E7)
                                         ),
                                       ),
                                     ),
@@ -281,17 +349,17 @@ class _UserHomePageState extends State<UserHomePage> {
                                     ),
 
                                     Positioned(
-                                      left: 115,
+                                      left: 110,
                                       top: 35,
-                                      child: Expanded(
-                                          child:
-                                          Text(snapshot.data!.docs[index]['servicetype'],
-                                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
+                                      child: Text(snapshot.data!.docs[index]['servicetype'],
+                                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                                     ),
+
                                     Positioned(
-                                      left: 160,
-                                      top: 65,
-                                      child: Text(snapshot.data!.docs[index]['title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                      left: 110,
+                                      top: 85,
+                                      child: Text(snapshot.data!.docs[index]['createdby'],
+                                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                                     ),
 
                                     Positioned(
@@ -320,7 +388,7 @@ class _UserHomePageState extends State<UserHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
 
-                Text("Mobile service".toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),)
+                Text("Mobile service".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)
                 // ,Text("See All".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 14),)
               ],
             ),
@@ -352,7 +420,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Display",style: TextStyle(color: Colors.white))
+                          Text("Display",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -379,7 +447,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Battery change",style: TextStyle(color: Colors.white))
+                          Text("Battery change",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -406,7 +474,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Port service",style: TextStyle(color: Colors.white))
+                          Text("Port service",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -434,7 +502,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Body changing",style: TextStyle(color: Colors.white))
+                          Text("Body changing",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -462,7 +530,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Camera Change",style: TextStyle(color: Colors.white))
+                          Text("Camera Change",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -489,7 +557,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Water Damage",style: TextStyle(color: Colors.white))
+                          Text("Water Damage",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -516,7 +584,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Speaker Repair",style: TextStyle(color: Colors.white))
+                          Text("Speaker Repair",style: TextStyle(color: Colors.black))
                         ],
                       ),
                     ),
@@ -544,7 +612,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             radius: 40,
                             backgroundImage: AssetImage('assets/img/display.jpg'),
                           ),
-                          Text("Software",style: TextStyle(color: Colors.white),)
+                          Text("Software",style: TextStyle(color: Colors.black),)
                         ],
                       ),
                     ),
@@ -561,4 +629,12 @@ class _UserHomePageState extends State<UserHomePage> {
       ),
     );
   }
+
+  void showsnackbar(String value) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(value))
+    );
+  }
+
+
 }

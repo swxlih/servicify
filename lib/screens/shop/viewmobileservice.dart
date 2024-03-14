@@ -26,13 +26,7 @@ class _ViewMobileServicesState extends State<ViewMobileServices> {
         ),
       ),
       body: InkWell(
-        onTap: (){
 
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MobileServDetail()));
-        },
         child: Container(
             padding: EdgeInsets.all(20),
             height: double.infinity,

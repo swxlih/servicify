@@ -9,6 +9,7 @@ import 'package:servicify/screens/shop/addfeedbackshop.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
 import 'package:servicify/screens/shop/addworker.dart';
+import 'package:servicify/screens/shop/review.dart';
 import 'package:servicify/screens/shop/shopbooking.dart';
 import 'package:servicify/screens/shop/shopcomplaintreply.dart';
 import 'package:servicify/screens/shop/viewlaptopservice.dart';
@@ -469,6 +470,48 @@ class _ShopHomeState extends State<ShopHome> {
                 ),
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ReviewShop(
+                                          shopid: _uid,
+
+                                      )));
+                            },
+                            child: Text(
+                              "Reviews",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
 
           ],
         ),

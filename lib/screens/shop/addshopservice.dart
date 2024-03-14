@@ -27,7 +27,7 @@ class AddLapService extends StatefulWidget {
 class _AddLapServiceState extends State<AddLapService> {
 
 
-  TextEditingController _titleController=TextEditingController();
+
   TextEditingController _descriptinController=TextEditingController();
   TextEditingController _costController=TextEditingController();
   TextEditingController _phoneController=TextEditingController();
@@ -78,18 +78,10 @@ class _AddLapServiceState extends State<AddLapService> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Field is mandatory";
-                    }
-                  },
-                  cursorColor: primaryColor,
-                  controller: _titleController,
-
+                DropdownButtonFormField<String>(
                   decoration: InputDecoration(
 
-                    hintText: "Title",
+                    hintText: "Select Service Type",
                     hintStyle: TextStyle(
                       color: primaryColor,
                     ),
@@ -103,7 +95,18 @@ class _AddLapServiceState extends State<AddLapService> {
                     ),
 
                   ),
+                  value: selectedService,
+                  items: lapservices
+                      .map((item) => DropdownMenuItem<String>(
+                      value: item, child: Text(item!)))
+                      .toList(),
+                  onChanged: (value) {
+
+                    selectedService=value;
+
+                  },
                 ),
+
                 SizedBox(height: 10,),
                 TextFormField(
                   validator: (value) {
@@ -187,34 +190,7 @@ class _AddLapServiceState extends State<AddLapService> {
                 ),
                 SizedBox(height: 10,),
 
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
 
-                    hintText: "Select Service Type",
-                    hintStyle: TextStyle(
-                      color: primaryColor,
-                    ),
-
-                    enabledBorder:UnderlineInputBorder(),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-
-                        )
-
-                    ),
-
-                  ),
-                  value: selectedService,
-                  items: lapservices
-                      .map((item) => DropdownMenuItem<String>(
-                      value: item, child: Text(item!)))
-                      .toList(),
-                  onChanged: (value) {
-
-                    selectedService=value;
-
-                  },
-                ),
 
                 SizedBox(height: 10,),
 
@@ -278,7 +254,7 @@ class _AddLapServiceState extends State<AddLapService> {
                                 .doc(v1).
 
                             set({
-                              'title':_titleController.text,
+
                               'description':_descriptinController.text,
                               'cost':_costController.text,
                               'servicetype':selectedService,

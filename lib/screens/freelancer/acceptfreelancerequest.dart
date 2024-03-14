@@ -83,15 +83,7 @@ class _AcceptFreeRequestState extends State<AcceptFreeRequest> {
                                       "ServiceType: ${snapshot.data!.docs[index]['servicetype']}",
 
                                     )),
-                                Positioned(
-                                    top: 45,
-                                    left: 60,
-                                    right: 10,
-                                    child: Text(
-                                      "Title: ${snapshot.data!.docs[index]['title']}",
 
-
-                                    )),
                                 Positioned(
                                     top: 65,
                                     left: 60,

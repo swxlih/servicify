@@ -10,6 +10,7 @@ import 'package:servicify/screens/freelancer/freelancebooking.dart';
 import 'package:servicify/screens/freelancer/freelancecomplaint.dart';
 import 'package:servicify/screens/freelancer/freelancefeedback.dart';
 import 'package:servicify/screens/freelancer/freelancercomplaintreply.dart';
+import 'package:servicify/screens/freelancer/reviewfreelancer.dart';
 import 'package:servicify/screens/freelancer/viewlapservice.dart';
 import 'package:servicify/screens/shop/addmobilesevice.dart';
 import 'package:servicify/screens/shop/addshopservice.dart';
@@ -410,6 +411,47 @@ class _FreelancerHomeState extends State<FreelancerHome> {
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 5.0,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: primaryColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ReviewFrelancer(
+                                        freelancerid: _uid,
+
+                                      )));
+                            },
+                            child: Text(
+                              "Reviews",
+                              style: appbarStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+
                     ],
                   ),
                 ),

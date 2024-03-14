@@ -82,23 +82,23 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(13),
-            child: InkWell(
-                onTap: (){
-                  Navigator.pushAndRemoveUntil(
-                      context, MaterialPageRoute(builder:
-                      (context)=>LoginPage()),
-                          (route) => false
-                  );
-                },
-                child: Icon(Icons.logout)),
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   iconTheme: IconThemeData(color: Colors.white),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.all(13),
+      //       child: InkWell(
+      //           onTap: (){
+      //             Navigator.pushAndRemoveUntil(
+      //                 context, MaterialPageRoute(builder:
+      //                 (context)=>LoginPage()),
+      //                     (route) => false
+      //             );
+      //           },
+      //           child: Icon(Icons.logout)),
+      //     )
+      //   ],
+      // ),
       body: SafeArea(
         child: Container(
           height: double.infinity,

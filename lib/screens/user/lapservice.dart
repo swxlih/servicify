@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:servicify/screens/constants/colors.dart';
 import 'package:servicify/screens/constants/textstyles.dart';
 import 'package:servicify/screens/user/lapserviceman.dart';
+import 'package:uuid/uuid.dart';
 class LapServices extends StatefulWidget {
   var servicetype;
  var createdby;
@@ -14,6 +15,20 @@ class LapServices extends StatefulWidget {
 }
 
 class _LapServicesState extends State<LapServices> {
+
+  var v1;
+  var uuid = Uuid();
+
+
+
+
+  @override
+  void initState() {
+    v1 = uuid.v1();
+
+    super.initState();
+  }
+
 
 
 
@@ -62,14 +77,72 @@ class _LapServicesState extends State<LapServices> {
                             child: InkWell(
                               onTap: (){
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LapServiceMan(
-                                          servicetype: snapshot.data!.docs[index]['servicetype'],
-                                          createdid: widget.createdid,
-                                          createdby: widget.createdby,
-                                        )));
+                                showModalBottomSheet(context: context, builder: (context){
+
+                                  return Container(
+                                    padding: EdgeInsets.all(30),
+                                    height:350,
+                                    width: MediaQuery.of(context).size.width,
+
+
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                                      children: [
+                                        Text("Service:${snapshot.data!.docs[index]['servicetype']}"),
+                                        SizedBox(height:20,),
+                                        Text("Servicer:${snapshot.data!.docs[index]['createdby']}"),
+                                        SizedBox(height:20,),
+
+                                        Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
+                                        SizedBox(height:20,),
+
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
+                                        SizedBox(height:20,),
+
+                                        SizedBox(height:20,),
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+
+                                            ElevatedButton(
+
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+
+                                                }, child: Text("Cancel")),
+                                            ElevatedButton(onPressed: (){
+                                              FirebaseFirestore.instance.collection("appointment")
+                                                  .doc(v1).
+
+                                              set({
+
+                                                'createdby':widget.createdby,
+                                                'createdid':widget.createdid,
+                                                'bookingstatus':0,
+                                                'servicetype':snapshot.data!.docs[index]['servicetype'],
+                                                'serviceby':snapshot.data!.docs[index]['createdby'],
+                                                'serviceid':snapshot.data!.docs[index]['createdid'],
+                                                'title':snapshot.data!.docs[index]['title'],
+                                                "status": 1,
+                                                "id":v1,
+                                                "createdDate": DateTime.now(),
+
+                                              })
+                                                  .then((value) { showsnackbar(" Appointment Added Succesfully !");
+                                              Navigator.pop(context);}
+                                              );
+                                            }, child: Text("Book now")),
+                                          ],
+                                        )
+
+                                      ],
+                                    ),
+                                  );
+                                });
+
 
                               },
                               child: Center(
@@ -88,35 +161,24 @@ class _LapServicesState extends State<LapServices> {
                                         ),
                                       ),
                                     ),
+
                                     Positioned(
-                                        top: 0,
-                                        bottom: 0,
-                                        left: 0,
+                                        top: 4,
+                                        left: 4,
                                         child: Container(
-                                          height: 130,
+                                          height: 131,
                                           width: 100,
-                                          color: Color(0xFF80CBC4),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(snapshot.data!.docs[index]['url'],),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
                                         )),
                                     Positioned(
-                                      top: 50,
-                                      left: 20,
-
-                                      child: Container(
-                                        height: 40,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(snapshot.data!.docs[index]['url'],)
-                                            )
-                                        ),
-                                      )
-
-                                    ),
-                                    Positioned(
-                                      left: 100,
+                                      left: 110,
                                       top: 15,
-                                      child: Expanded(
-                                          child: Text(snapshot.data!.docs[index]['servicetype'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)),
+                                      child: Text(snapshot.data!.docs[index]['servicetype'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                                     ),
                                     Positioned(
                                       left: 160,
@@ -145,6 +207,11 @@ class _LapServicesState extends State<LapServices> {
           ),
         ),
       ),
+    );
+  }
+  void showsnackbar(String value) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(value))
     );
   }
 }
