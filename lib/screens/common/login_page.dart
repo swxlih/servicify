@@ -317,16 +317,16 @@ class _LoginPageState extends State<LoginPage> {
                         }, child: Text("Sign up",style: normalStylebold,))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-
-                        TextButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>TechnicianRegister()));
-
-                        }, child: Text("Sign in as a Technician!",style: normalStylebold,))
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //
+                    //     TextButton(onPressed: (){
+                    //       Navigator.push(context, MaterialPageRoute(builder: (context)=>TechnicianRegister()));
+                    //
+                    //     }, child: Text("Sign in as a Technician!",style: normalStylebold,))
+                    //   ],
+                    // ),
 
 
 

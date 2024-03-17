@@ -89,11 +89,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
                                     child: Expanded(
                                         child: Text(snapshot.data!.docs[index]['servicetype'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),)),
                                   ),
-                                  Positioned(
-                                    left: 160,
-                                    top: 50,
-                                    child: Text(snapshot.data!.docs[index]['title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                  ),
+
 
                                   Positioned(
                                     left: 220,
