@@ -9,7 +9,9 @@ class SoftwarePage extends StatefulWidget {
 
   var createdby;
   var createdid;
-  SoftwarePage({super.key,this.createdid,this.createdby});
+  var phone;
+  var location;
+  SoftwarePage({super.key,this.createdid,this.createdby,this.location,this.phone});
 
   @override
   State<SoftwarePage> createState() => _SoftwarePageState();
@@ -106,7 +108,7 @@ class _SoftwarePageState extends State<SoftwarePage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -127,6 +129,8 @@ class _SoftwarePageState extends State<SoftwarePage>
 
                                               set({
 
+                                                'phone':widget.phone,
+                                                'location':widget.location,
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,
                                                 'bookingstatus':0,

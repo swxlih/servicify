@@ -9,7 +9,9 @@ class BatteryPage extends StatefulWidget {
 
   var createdby;
   var createdid;
-  BatteryPage({super.key,this.createdid,this.createdby});
+  var location;
+  var phone;
+  BatteryPage({super.key,this.createdid,this.createdby,this.phone,this.location});
 
   @override
   State<BatteryPage> createState() => _BatteryPageState();
@@ -107,7 +109,7 @@ class _BatteryPageState extends State<BatteryPage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -127,6 +129,8 @@ class _BatteryPageState extends State<BatteryPage>
                                                   .doc(v1).
 
                                               set({
+                                                'phone':widget.phone,
+                                                'location':widget.location,
 
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,

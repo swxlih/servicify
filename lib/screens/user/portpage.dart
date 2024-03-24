@@ -8,8 +8,11 @@ import 'package:uuid/uuid.dart';
 class PortPage extends StatefulWidget {
 
   var createdby;
+  var phone;
+  var location;
+
   var createdid;
-  PortPage({super.key,this.createdid,this.createdby});
+  PortPage({super.key,this.createdid,this.createdby,this.phone,this.location});
 
   @override
   State<PortPage> createState() => _PortPageState();
@@ -107,7 +110,7 @@ class _PortPageState extends State<PortPage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -128,6 +131,8 @@ class _PortPageState extends State<PortPage>
 
                                               set({
 
+                                                'phone':widget.phone,
+                                                'location':widget.location,
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,
                                                 'bookingstatus':0,

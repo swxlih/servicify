@@ -9,8 +9,10 @@ import 'package:uuid/uuid.dart';
 class WaterPage extends StatefulWidget {
 
   var createdby;
+  var phone;
+  var location;
   var createdid;
-  WaterPage({super.key,this.createdid,this.createdby});
+  WaterPage({super.key,this.createdid,this.createdby,this.phone,this.location});
 
   @override
   State<WaterPage> createState() => _WaterPageState();
@@ -108,7 +110,7 @@ class _WaterPageState extends State<WaterPage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -129,6 +131,8 @@ class _WaterPageState extends State<WaterPage>
 
                                               set({
 
+                                                'phone':widget.phone,
+                                                'location':widget.location,
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,
                                                 'bookingstatus':0,

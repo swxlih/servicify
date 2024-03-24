@@ -198,6 +198,8 @@ class _UserHomePageState extends State<UserHomePage> {
 
                                 createdid: _uid,
                                 createdby: _name,
+                                phone: _phone,
+                                location: _location,
                               )));
 
                     },
@@ -283,6 +285,8 @@ class _UserHomePageState extends State<UserHomePage> {
                                                   'serviceby':snapshot.data!.docs[index]['createdby'],
                                                   'serviceid':snapshot.data!.docs[index]['createdid'],
 
+                                                  'phone':_phone,
+                                                  'location':_location,
                                                   "status": 1,
                                                   "id":v1,
                                                   "createdDate": DateTime.now(),
@@ -408,6 +412,9 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => DisplayPage(
                                 createdid: _uid,
                                 createdby: _name,
+                                phone: _phone,
+                                location: _location,
+
 
                               )));
 
@@ -434,6 +441,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => BatteryPage(
                                 createdid: _uid,
                                 createdby: _name,
+                                phone:_phone,
+                                location:_location
 
                               )));
 
@@ -461,7 +470,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => PortPage(
                                 createdid: _uid,
                                 createdby: _name,
-
+                                  phone:_phone,
+                                  location:_location
                               )));
 
                     },
@@ -489,7 +499,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => BodyPage(
                                 createdid: _uid,
                                 createdby: _name,
-
+                                  phone:_phone,
+                                  location:_location
                               )));
 
                     },
@@ -517,7 +528,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => CameraPage(
                                 createdid: _uid,
                                 createdby: _name,
-
+                                  phone:_phone,
+                                  location:_location
                               )));
 
                     },
@@ -544,7 +556,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => WaterPage(
                                 createdid: _uid,
                                 createdby: _name,
-
+                                  phone:_phone,
+                                  location:_location
                               )));
 
                     },
@@ -571,6 +584,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => SpeakerPage(
                                 createdid: _uid,
                                 createdby: _name,
+                                  phone:_phone,
+                                  location:_location
 
                               )));
 
@@ -599,6 +614,8 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => SoftwarePage(
                                 createdid: _uid,
                                 createdby: _name,
+                                  phone:_phone,
+                                  location:_location
 
                               )));
 

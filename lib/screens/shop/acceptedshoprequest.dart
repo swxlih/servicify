@@ -58,7 +58,7 @@ class _AcceptShopRequestState extends State<AcceptShopRequest> {
                               color:Colors.black12,
                             ),
 
-                            height: 120,
+                            height: 160,
                             width: 280,
 
                             child: Stack(
@@ -90,6 +90,22 @@ class _AcceptShopRequestState extends State<AcceptShopRequest> {
                                     right: 10,
                                     child: Text(
                                       "Name: ${snapshot.data!.docs[index]['createdby']}",
+
+                                    )),
+                                Positioned(
+                                    top: 85,
+                                    left: 60,
+                                    right: 10,
+                                    child: Text(
+                                      "Phone: ${snapshot.data!.docs[index]['phone']}",
+
+                                    )),
+                                Positioned(
+                                    top: 105,
+                                    left: 60,
+                                    right: 10,
+                                    child: Text(
+                                      "Location: ${snapshot.data!.docs[index]['location']}",
 
                                     )),
 

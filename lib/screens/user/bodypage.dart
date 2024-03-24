@@ -9,7 +9,9 @@ class BodyPage extends StatefulWidget {
 
   var createdby;
   var createdid;
-  BodyPage({super.key,this.createdid,this.createdby});
+  var phone;
+  var location;
+  BodyPage({super.key,this.createdid,this.createdby,this.location,this.phone});
 
   @override
   State<BodyPage> createState() => _BodyPageState();
@@ -107,7 +109,7 @@ class _BodyPageState extends State<BodyPage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -138,6 +140,8 @@ class _BodyPageState extends State<BodyPage>
                                                 "status": 1,
                                                 "id":v1,
                                                 "createdDate": DateTime.now(),
+                                                'phone':widget.phone,
+                                                'location':widget.location,
 
                                               })
                                                   .then((value) { showsnackbar(" Appointment Added Succesfully !");

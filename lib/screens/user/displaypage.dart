@@ -9,7 +9,9 @@ class DisplayPage extends StatefulWidget {
 
   var createdby;
   var createdid;
-  DisplayPage({super.key,this.createdid,this.createdby});
+  var phone;
+  var location;
+  DisplayPage({super.key,this.createdid,this.createdby,this.location,this.phone});
 
   @override
   State<DisplayPage> createState() => _DisplayPageState();
@@ -98,7 +100,7 @@ class _DisplayPageState extends State<DisplayPage>
                                         Text("Phone No:${snapshot.data!.docs[index]['phone']}"),
                                         SizedBox(height:20,),
 
-                                        Text("Phone No:${snapshot.data!.docs[index]['cost']}"),
+                                        Text("Cost:${snapshot.data!.docs[index]['cost']}"),
                                         SizedBox(height:20,),
 
                                         SizedBox(height:20,),
@@ -119,6 +121,8 @@ class _DisplayPageState extends State<DisplayPage>
 
                                               set({
 
+                                                'phone':widget.phone,
+                                                'location':widget.location,
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,
                                                 'bookingstatus':0,
