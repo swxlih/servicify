@@ -327,9 +327,6 @@ class _LoginPageState extends State<LoginPage> {
                     //     }, child: Text("Sign in as a Technician!",style: normalStylebold,))
                     //   ],
                     // ),
-
-
-
                   ],
                 ),
               )
