@@ -187,7 +187,7 @@ class _LapServicesState extends State<LapServices> {
                                     Positioned(
                                       left: 160,
                                       top: 50,
-                                      child: Text(snapshot.data!.docs[index]['title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                      child: Text(snapshot.data!.docs[index]['description'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                                     ),
 
                                     Positioned(
