@@ -109,7 +109,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 300,bottom: 10),
+                  padding: const EdgeInsets.only(left: 20,bottom: 10),
                   child: Text("See All".toUpperCase(),style: TextStyle(color: Colors.black,fontSize: 14),),
                 )),
             Container(
@@ -198,8 +198,6 @@ class _UserHomePageState extends State<UserHomePage> {
 
                                 createdid: _uid,
                                 createdby: _name,
-                                phone: _phone,
-                                location: _location,
                               )));
 
                     },
@@ -211,6 +209,7 @@ class _UserHomePageState extends State<UserHomePage> {
             Container(
 
                 height: 350,
+
                 width: double.infinity,
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance.collection("lapservices").
@@ -229,6 +228,8 @@ class _UserHomePageState extends State<UserHomePage> {
                       }
                       else
                         return ListView.builder(
+
+
                           itemCount:snapshot.data!.docs.length ,
                           itemBuilder: (context,index){
                             return  Padding(
@@ -240,7 +241,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
                                     return Container(
                                       padding: EdgeInsets.all(30),
-                                      height:350,
+
                                       width: MediaQuery.of(context).size.width,
 
 
@@ -285,8 +286,6 @@ class _UserHomePageState extends State<UserHomePage> {
                                                   'serviceby':snapshot.data!.docs[index]['createdby'],
                                                   'serviceid':snapshot.data!.docs[index]['createdid'],
 
-                                                  'phone':_phone,
-                                                  'location':_location,
                                                   "status": 1,
                                                   "id":v1,
                                                   "createdDate": DateTime.now(),
@@ -412,9 +411,6 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => DisplayPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                phone: _phone,
-                                location: _location,
-
 
                               )));
 
@@ -441,8 +437,6 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => BatteryPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                phone:_phone,
-                                location:_location
 
                               )));
 
@@ -470,8 +464,7 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => PortPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
+
                               )));
 
                     },
@@ -499,8 +492,7 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => BodyPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
+
                               )));
 
                     },
@@ -528,8 +520,7 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => CameraPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
+
                               )));
 
                     },
@@ -556,8 +547,7 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => WaterPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
+
                               )));
 
                     },
@@ -584,8 +574,6 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => SpeakerPage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
 
                               )));
 
@@ -614,8 +602,6 @@ class _UserHomePageState extends State<UserHomePage> {
                               builder: (context) => SoftwarePage(
                                 createdid: _uid,
                                 createdby: _name,
-                                  phone:_phone,
-                                  location:_location
 
                               )));
 

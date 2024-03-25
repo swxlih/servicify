@@ -8,9 +8,7 @@ class LapServices extends StatefulWidget {
   var servicetype;
  var createdby;
  var createdid;
- var phone;
- var location;
-   LapServices({super.key,this.servicetype,this.createdby,this.createdid,this.phone,this.location});
+   LapServices({super.key,this.servicetype,this.createdby,this.createdid});
 
   @override
   State<LapServices> createState() => _LapServicesState();
@@ -121,15 +119,13 @@ class _LapServicesState extends State<LapServices> {
 
                                               set({
 
-                                                'phone':widget.phone,
-                                                'location':widget.location,
                                                 'createdby':widget.createdby,
                                                 'createdid':widget.createdid,
                                                 'bookingstatus':0,
                                                 'servicetype':snapshot.data!.docs[index]['servicetype'],
                                                 'serviceby':snapshot.data!.docs[index]['createdby'],
                                                 'serviceid':snapshot.data!.docs[index]['createdid'],
-                                                'title':snapshot.data!.docs[index]['title'],
+                                                'title':snapshot.data!.docs[index]['description'],
                                                 "status": 1,
                                                 "id":v1,
                                                 "createdDate": DateTime.now(),

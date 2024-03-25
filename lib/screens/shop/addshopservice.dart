@@ -260,7 +260,6 @@ class _AddLapServiceState extends State<AddLapService> {
                               'servicetype':selectedService,
                               'phone':_phoneController.text,
                               "bookmarkstatus": 0,
-
                               "status": 1,
                               "id":v1,
                               "createdDate": DateTime.now(),
